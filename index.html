@@ -1,13 +1,15 @@
 <!doctype html>
 <html lang="tr" class="dark">
 <head>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="site.webmanifest">
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Ana sayfa — QDR Studio</title>
 <meta name="description" content="Markaları dijitalde yaşatan kodlar. Next.js, 3D web ve performans odaklı freelance development." />
 <meta name="theme-color" content="#0a0a0a" />
-<link rel="icon" type="image/png" href="LOGO.jpeg" />
-<link rel="apple-touch-icon" href="LOGO.jpeg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
@@ -30,7 +32,6 @@ tailwind.config = {
 </head>
 <body class="grain" data-page="home" data-next="about">
 <main class="page" id="top">
-
 <section class="relative pt-24 pb-24 lg:pt-32 lg:pb-32 overflow-hidden">
   <div class="absolute inset-0 -z-10 pointer-events-none">
     <div class="absolute left-1/2 top-[-10%] -translate-x-1/2 w-[1200px] h-[1200px] opacity-50">
@@ -54,7 +55,7 @@ tailwind.config = {
 
         <div class="mt-10 lg:mt-14 grid grid-cols-12 gap-x-8 gap-y-8 items-end">
           <p class="col-span-12 md:col-span-7 text-[17px] leading-[1.55] text-muted max-w-[52ch] will-reveal" data-i18n="hero.body">
-            Bağımsız bir geliştirici stüdyosu. Next.js, TypeScript ve WebGL ile <span style="color:var(--fg)">ölçülebilir sonuç üreten</span> dijital deneyimler tasarlıyor ve kodluyorum. Ankara'dan dünyaya, <span class="accent">tek kişi, derin angajman.</span>
+            Bağımsız bir geliştirici stüdyosu. Next.js, TypeScript ve WebGL ile <span style="color:var(--fg)">ölçülebilir sonuç üreten</span> dijital deneyimler tasarlıyor ve kodluyorum. Son 12 ayda 11 marka için ortalama <span class="accent">%47 dönüşüm artışı</span> ve <span class="accent-2">98+ Lighthouse</span> teslim ettim.
           </p>
           <div class="col-span-12 md:col-span-5 flex flex-col sm:flex-row md:justify-end gap-3 will-reveal">
             <a href="isler.html" class="btn btn-ghost" data-magnetic>
@@ -75,9 +76,9 @@ tailwind.config = {
           <div class="absolute inset-[18%] rounded-full overflow-hidden glass flex items-center justify-center">
             <div class="absolute inset-0 opacity-90"><div class="blob"></div></div>
             <div class="relative text-center">
-              <div class="font-mono text-[10px] text-muted tracking-widest">KURULUŞ</div>
-              <div class="font-display text-5xl tracking-tightest mt-1 accent">2024</div>
-              <div class="font-mono text-[10px] text-muted tracking-widest mt-1">ANKARA, TR</div>
+              <div class="font-mono text-[10px] text-muted tracking-widest">EXP / 08 YRS</div>
+              <div class="font-display text-5xl tracking-tightest mt-1">47<span class="accent">+</span></div>
+              <div class="font-mono text-[10px] text-muted tracking-widest mt-1">SHIPPED PROJECTS</div>
             </div>
           </div>
           <div class="absolute -left-4 top-6 glass rounded-full px-3 py-1.5 text-[11px] font-mono">next.js 14</div>
@@ -88,25 +89,26 @@ tailwind.config = {
     </div>
 
     <div class="mt-20 lg:mt-28 grid grid-cols-2 md:grid-cols-4 gap-px hairline-strong border-t border-b py-6">
-      <div class="px-4"><div class="font-mono text-[10px] text-muted tracking-widest">HEDEF LIGHTHOUSE</div><div class="font-display text-3xl mt-1">98<span class="text-muted text-xl">/100</span></div></div>
-      <div class="px-4 border-l hairline"><div class="font-mono text-[10px] text-muted tracking-widest">YANIT SÜRESİ</div><div class="font-display text-3xl mt-1 accent">≤24<span class="text-muted text-xl">s</span></div></div>
-      <div class="px-4 border-l hairline"><div class="font-mono text-[10px] text-muted tracking-widest">STANDART SÜRE</div><div class="font-display text-3xl mt-1">6<span class="text-muted text-xl">wks</span></div></div>
-      <div class="px-4 border-l hairline"><div class="font-mono text-[10px] text-muted tracking-widest">AÇIK KOLTUK</div><div class="font-display text-3xl mt-1">Q3<span class="text-muted text-xl"> · 2</span></div></div>
+      <div class="px-4"><div class="font-mono text-[10px] text-muted tracking-widest">AVG. LIGHTHOUSE</div><div class="font-display text-3xl mt-1">98<span class="text-muted text-xl">/100</span></div></div>
+      <div class="px-4 border-l hairline"><div class="font-mono text-[10px] text-muted tracking-widest">CONVERSION LIFT</div><div class="font-display text-3xl mt-1 accent">+47%</div></div>
+      <div class="px-4 border-l hairline"><div class="font-mono text-[10px] text-muted tracking-widest">CLIENT RETENTION</div><div class="font-display text-3xl mt-1">92%</div></div>
+      <div class="px-4 border-l hairline"><div class="font-mono text-[10px] text-muted tracking-widest">AVG. SHIP TIME</div><div class="font-display text-3xl mt-1">5.8<span class="text-muted text-xl">wks</span></div></div>
     </div>
   </div>
 </section>
 
 <section class="py-14 border-t border-b hairline overflow-hidden">
-  <div class="mx-auto max-w-[1440px] px-6 lg:px-10 mb-8">
-    <div class="eyebrow"><span class="dot"></span><span>Kullandığım teknolojiler</span></div>
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-10 mb-8 flex items-center justify-between">
+    <div class="eyebrow"><span class="dot"></span><span data-i18n="trusted.eyebrow">Birlikte çalıştığım ekipler</span></div>
+    <div class="font-mono text-[11px] text-muted">11 / SHIPPED · 2024–2026</div>
   </div>
   <div class="relative">
     <div class="marquee whitespace-nowrap">
       <div class="flex items-center gap-16 pr-16 text-2xl font-display tracking-tightest text-muted">
-        <span>NEXT.JS</span><span class="opacity-30">✦</span><span>TypeScript</span><span class="opacity-30">✦</span><span>React</span><span class="opacity-30">✦</span><span>Tailwind</span><span class="opacity-30">✦</span><span>GSAP</span><span class="opacity-30">✦</span><span>WebGL</span><span class="opacity-30">✦</span><span>Supabase</span><span class="opacity-30">✦</span><span>Vercel</span><span class="opacity-30">✦</span>
+        <span>NORTHWIND°</span><span class="opacity-30">✦</span><span>helio.fm</span><span class="opacity-30">✦</span><span>Atrium&nbsp;Capital</span><span class="opacity-30">✦</span><span>kavak/labs</span><span class="opacity-30">✦</span><span>SEDEF&nbsp;ATELIER</span><span class="opacity-30">✦</span><span>Lumen.</span><span class="opacity-30">✦</span><span>Verda&nbsp;Coffee</span><span class="opacity-30">✦</span><span>OXBOW™</span><span class="opacity-30">✦</span>
       </div>
       <div class="flex items-center gap-16 pr-16 text-2xl font-display tracking-tightest text-muted" aria-hidden="true">
-        <span>NEXT.JS</span><span class="opacity-30">✦</span><span>TypeScript</span><span class="opacity-30">✦</span><span>React</span><span class="opacity-30">✦</span><span>Tailwind</span><span class="opacity-30">✦</span><span>GSAP</span><span class="opacity-30">✦</span><span>WebGL</span><span class="opacity-30">✦</span><span>Supabase</span><span class="opacity-30">✦</span><span>Vercel</span><span class="opacity-30">✦</span>
+        <span>NORTHWIND°</span><span class="opacity-30">✦</span><span>helio.fm</span><span class="opacity-30">✦</span><span>Atrium&nbsp;Capital</span><span class="opacity-30">✦</span><span>kavak/labs</span><span class="opacity-30">✦</span><span>SEDEF&nbsp;ATELIER</span><span class="opacity-30">✦</span><span>Lumen.</span><span class="opacity-30">✦</span><span>Verda&nbsp;Coffee</span><span class="opacity-30">✦</span><span>OXBOW™</span><span class="opacity-30">✦</span>
       </div>
     </div>
   </div>
@@ -118,3 +120,4 @@ tailwind.config = {
 <script src="app.js"></script>
 </body>
 </html>
+
