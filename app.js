@@ -1,5 +1,5 @@
 /* =========================================================
-   Atelier — interactivity (runs on every page)
+   Atelier � interactivity (runs on every page)
    Lenis + GSAP reveals + cursor + magnetic + theme + lang + tweaks
    Depends on shell.js (must load FIRST) which injects nav/footer/tweaks panel.
    ========================================================= */

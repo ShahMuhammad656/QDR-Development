@@ -6,8 +6,8 @@
 <title>Yorumlar — QDR Studio</title>
 <meta name="description" content="Müşteri yorumları. Cümleler bana ait değil, onlara ait." />
 <meta name="theme-color" content="#0a0a0a" />
-<link rel="icon" type="image/png" href="image.png" />
-<link rel="apple-touch-icon" href="image.png" />
+<link rel="icon" type="image/png" href="LOGO.jpeg" />
+<link rel="apple-touch-icon" href="LOGO.jpeg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
@@ -93,7 +93,7 @@ tailwind.config = {
 
           <div>
             <label class="block font-mono text-[10px] text-muted tracking-widest mb-2">YORUMUNUZ</label>
-            <textarea name="review" required rows="5" placeholder="Birlikte çalışma deneyimizi paylaşın..."
+            <textarea name="comment" required rows="5" placeholder="Birlikte çalışma deneyimizi paylaşın..."
               class="w-full bg-transparent border-b py-3 text-[15px] outline-none transition-colors focus:border-[var(--accent)]"
               style="border-color:var(--line-strong); color:var(--fg); resize:none;"></textarea>
           </div>
@@ -120,7 +120,10 @@ tailwind.config = {
 
         <div id="reviewSuccess" class="hidden mt-8 p-6 rounded-2xl" style="background:rgba(212,178,84,0.08); border:1px solid rgba(212,178,84,0.3)">
           <div class="font-display text-2xl tracking-tightest mb-2 accent">Teşekkürler ✓</div>
-          <p class="text-muted text-[14px]">Yorumunuz alındı. İnceledikten sonra burada yayınlanacak.</p>
+          <p class="text-muted text-[14px]">Yorumunuz alındı. Onaylandıktan sonra yayınlanacaktır.</p>
+        </div>
+        <div id="reviewError" class="hidden mt-8 p-6 rounded-2xl" style="background:rgba(255,80,80,0.08); border:1px solid rgba(255,80,80,0.3)">
+          <p class="text-[14px]" style="color:#ff5050">Yorum gönderilemedi. Lütfen tekrar deneyin.</p>
         </div>
       </div>
 
@@ -162,163 +165,142 @@ tailwind.config = {
 </section>
 
 <script>
-// ══════════════════════════════════════════════════════════════
-// SUPABASE KURULUMU  (isteğe bağlı — şimdilik localStorage çalışır)
-//
-// 1. supabase.com → Yeni proje oluştur (ücretsiz)
-// 2. SQL Editor'da şunu çalıştır:
-//
-//   CREATE TABLE reviews (
-//     id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-//     name text NOT NULL,
-//     company text,
-//     review text NOT NULL,
-//     rating int NOT NULL,
-//     approved boolean DEFAULT false,
-//     created_at timestamptz DEFAULT now()
-//   );
-//   ALTER TABLE reviews ENABLE ROW LEVEL SECURITY;
-//   CREATE POLICY "public_select" ON reviews FOR SELECT USING (approved = true);
-//   CREATE POLICY "public_insert" ON reviews FOR INSERT WITH CHECK (true);
-//
-// 3. Project Settings → API → URL ve anon key'i al
-// 4. Aşağıdaki iki sabiti güncelle
-// ══════════════════════════════════════════════════════════════
-const SUPABASE_URL      = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-const USE_SUPABASE = SUPABASE_URL !== 'YOUR_SUPABASE_URL';
+const SUPABASE_URL_Y      = 'https://mjjnpcbzedfvtbqmbrcv.supabase.co';
+const SUPABASE_ANON_KEY_Y = 'sb_publishable_s-E6U0EEyD3lU6j8xoR72A_aG_X_lz6';
+const FORMSPREE_URL_Y     = 'https://formspree.io/f/xgodbeze';
 
-let sbClient = null;
-if (USE_SUPABASE && window.supabase) {
-  sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-}
+const sbClient = window.supabase.createClient(SUPABASE_URL_Y, SUPABASE_ANON_KEY_Y);
 
-// ── localStorage helpers ──────────────────────────────────────
 const LS_KEY = 'qdr_reviews';
-function lsGet() { try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch { return []; } }
+function lsGet() { try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch(e) { return []; } }
 function lsSet(arr) { localStorage.setItem(LS_KEY, JSON.stringify(arr)); }
 
-// ── Render a review card ──────────────────────────────────────
 function buildCard(r, isAdmin) {
-  const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+  const stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
   const date  = r.created_at ? new Date(r.created_at).toLocaleDateString('tr-TR') : '';
   const initial = (r.name || '?')[0].toUpperCase();
-  return `
-    <div class="card p-8 ${isAdmin ? 'opacity-70' : ''}">
-      <div class="font-mono text-[11px] mb-3" style="color:var(--accent)">${stars}</div>
-      <p class="text-[15px] leading-[1.7] mb-6">"${r.review}"</p>
-      <div class="pt-5 border-t hairline flex items-center gap-3">
-        <div class="w-8 h-8 rounded-full shrink-0 flex items-center justify-center font-display text-[13px]"
-             style="background:rgba(212,178,84,0.15); color:var(--accent)">${initial}</div>
-        <div>
-          <div class="text-[13px] font-medium">${r.name}</div>
-          ${r.company ? `<div class="font-mono text-[10px] text-muted">${r.company}</div>` : ''}
-        </div>
-        ${date ? `<div class="ml-auto font-mono text-[10px] text-muted">${date}</div>` : ''}
-        ${isAdmin ? `<button onclick="approveReview('${r.id}')" class="ml-2 font-mono text-[10px] px-3 py-1 rounded-full border hairline-strong hover:opacity-70 transition-opacity" style="color:var(--accent);border-color:var(--accent)">Onayla</button>` : ''}
-      </div>
-    </div>`;
+  const adminBtn = isAdmin
+    ? '<button onclick="approveReview(\'' + r.id + '\')" class="ml-2 font-mono text-[10px] px-3 py-1 rounded-full border hairline-strong hover:opacity-70 transition-opacity" style="color:var(--accent);border-color:var(--accent)">Onayla</button>'
+    : '';
+  const companyDiv = r.company ? '<div class="font-mono text-[10px] text-muted">' + r.company + '</div>' : '';
+  const dateDiv   = date ? '<div class="ml-auto font-mono text-[10px] text-muted">' + date + '</div>' : '';
+  return '<div class="card p-8 ' + (isAdmin ? 'opacity-70' : '') + '">'
+    + '<div class="font-mono text-[11px] mb-3" style="color:var(--accent)">' + stars + '</div>'
+    + '<p class="text-[15px] leading-[1.7] mb-6">“' + r.comment + '”</p>'
+    + '<div class="pt-5 border-t hairline flex items-center gap-3">'
+    + '<div class="w-8 h-8 rounded-full shrink-0 flex items-center justify-center font-display text-[13px]" style="background:rgba(212,178,84,0.15); color:var(--accent)">' + initial + '</div>'
+    + '<div><div class="text-[13px] font-medium">' + r.name + '</div>' + companyDiv + '</div>'
+    + dateDiv + adminBtn
+    + '</div></div>';
 }
 
-// ── Load & display approved reviews ──────────────────────────
 async function loadReviews() {
   let reviews = [];
-  if (sbClient) {
-    const { data } = await sbClient.from('reviews').select('*').eq('approved', true).order('created_at', { ascending: false });
-    reviews = data || [];
-  } else {
-    reviews = lsGet().filter(r => r.approved);
+  try {
+    const { data, error } = await sbClient.from('comments').select('*').eq('approved', true).order('created_at', { ascending: false });
+    if (!error && data) reviews = data;
+  } catch(e) {
+    reviews = lsGet().filter(function(r){ return r.approved; });
   }
   const list = document.getElementById('reviewsList');
   const sec  = document.getElementById('reviewsSection');
   if (reviews.length === 0) { sec.classList.add('hidden'); return; }
-  list.innerHTML = reviews.map(r => buildCard(r, false)).join('');
+  list.innerHTML = reviews.map(function(r){ return buildCard(r, false); }).join('');
   sec.classList.remove('hidden');
 }
 
-// ── Admin panel ───────────────────────────────────────────────
 async function loadAdminPanel() {
   const panel = document.getElementById('adminPanel');
   panel.classList.remove('hidden');
   let pending = [];
-  if (sbClient) {
-    const { data } = await sbClient.from('reviews').select('*').eq('approved', false).order('created_at', { ascending: false });
-    pending = data || [];
-  } else {
-    pending = lsGet().filter(r => !r.approved);
+  try {
+    const { data, error } = await sbClient.from('comments').select('*').eq('approved', false).order('created_at', { ascending: false });
+    if (!error && data) pending = data;
+  } catch(e) {
+    pending = lsGet().filter(function(r){ return !r.approved; });
   }
   const list = document.getElementById('pendingList');
   const noPending = document.getElementById('noPending');
   if (pending.length === 0) { noPending.classList.remove('hidden'); return; }
-  list.innerHTML = pending.map(r => buildCard(r, true)).join('');
+  list.innerHTML = pending.map(function(r){ return buildCard(r, true); }).join('');
 }
 
 async function approveReview(id) {
-  if (sbClient) {
-    await sbClient.from('reviews').update({ approved: true }).eq('id', id);
-  } else {
-    const arr = lsGet().map(r => r.id === id ? { ...r, approved: true } : r);
+  try {
+    await sbClient.from('comments').update({ approved: true }).eq('id', id);
+  } catch(e) {
+    const arr = lsGet().map(function(r){ return r.id === id ? Object.assign({}, r, { approved: true }) : r; });
     lsSet(arr);
   }
   await loadAdminPanel();
   await loadReviews();
 }
 
-// ── Star rating ───────────────────────────────────────────────
 let currentRating = 0;
 function setRating(n) {
   currentRating = n;
   document.getElementById('ratingValue').value = n;
-  document.querySelectorAll('.star-btn').forEach((btn, i) => {
+  document.querySelectorAll('.star-btn').forEach(function(btn, i) {
     btn.style.color = i < n ? 'var(--accent)' : '';
   });
 }
 
-// ── Submit ────────────────────────────────────────────────────
 async function submitReview(e) {
   e.preventDefault();
   if (!currentRating) { alert('Lütfen bir puan seçin.'); return; }
   const btn = document.getElementById('reviewSubmitBtn');
   btn.disabled = true; btn.style.opacity = '0.6';
 
-  const form = e.target;
-  const entry = {
-    id:         crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(),
-    name:       form.name.value.trim(),
-    company:    form.company.value.trim(),
-    email:      form.email.value.trim(),
-    review:     form.review.value.trim(),
-    rating:     currentRating,
-    approved:   false,
-    created_at: new Date().toISOString()
-  };
+  const form    = e.target;
+  const name    = form.name.value.trim();
+  const company = form.company.value.trim();
+  const email   = form.email.value.trim();
+  const comment = form.comment.value.trim();
+  const rating  = currentRating;
 
-  if (sbClient) {
-    const { error } = await sbClient.from('reviews').insert([{ ...entry, id: undefined }]);
-    if (error) { alert('Hata: ' + error.message); btn.disabled = false; btn.style.opacity = '1'; return; }
-  } else {
+  let success = false;
+
+  try {
+    const { error } = await sbClient.from('comments').insert([{ name: name, comment: comment, approved: false }]);
+    if (!error) success = true;
+  } catch(e) {}
+
+  try {
+    const res = await fetch(FORMSPREE_URL_Y, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name: name, email: email, company: company, comment: comment, rating: rating, date: new Date().toISOString() })
+    });
+    if (res.ok) success = true;
+  } catch(e) {}
+
+  if (!success) {
     const arr = lsGet();
-    arr.push(entry);
+    arr.push({ id: Date.now().toString(), name: name, company: company, email: email, comment: comment, rating: rating, approved: false, created_at: new Date().toISOString() });
     lsSet(arr);
+    success = true;
   }
 
-  setTimeout(() => {
+  if (success) {
     form.style.display = 'none';
     document.getElementById('reviewSuccess').classList.remove('hidden');
-  }, 500);
+    document.getElementById('reviewError').classList.add('hidden');
+  } else {
+    btn.disabled = false; btn.style.opacity = '1';
+    document.getElementById('reviewError').classList.remove('hidden');
+  }
 }
 
-// ── Init ──────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
   loadReviews();
   if (new URLSearchParams(location.search).get('admin') === 'true') {
     loadAdminPanel();
   }
 });
 </script>
-
 <script src="i18n.js"></script>
 <script src="shell.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
+

@@ -6,8 +6,8 @@
 <title>İletişim — QDR Studio</title>
 <meta name="description" content="Bir kahve, bir brief, bir karar. 45 dakikalık keşif görüşmesi ücretsiz." />
 <meta name="theme-color" content="#0a0a0a" />
-<link rel="icon" type="image/png" href="image.png" />
-<link rel="apple-touch-icon" href="image.png" />
+<link rel="icon" type="image/png" href="LOGO.jpeg" />
+<link rel="apple-touch-icon" href="LOGO.jpeg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@ tailwind.config = {
 <link rel="stylesheet" href="styles.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 .form-field{
   width:100%; background:transparent; border:none; border-bottom:1px solid var(--line-strong);
@@ -96,15 +96,15 @@ tailwind.config = {
             <div class="flex flex-wrap gap-2">
               <label class="radio-opt">
                 <input type="radio" name="package" value="launch" />
-                Launch
+                BAŞLANGIÇ
               </label>
               <label class="radio-opt">
                 <input type="radio" name="package" value="atelier" />
-                Atelier
+                BUSINESS
               </label>
               <label class="radio-opt">
                 <input type="radio" name="package" value="enterprise" />
-                Enterprise
+                PREMİUM
               </label>
               <label class="radio-opt">
                 <input type="radio" name="package" value="unsure" />
@@ -116,7 +116,7 @@ tailwind.config = {
           <div>
             <label class="form-label block mb-2" data-i18n="ct.form.brief">PROJE</label>
             <textarea name="brief" class="form-field" rows="4" placeholder="Projenizi kısaca anlatın: hedef, kısıt, zaman çizelgesi..." required style="resize:none; padding-bottom:12px"></textarea>
-            <p class="font-mono text-[10px] text-muted mt-2" data-i18n="ct.form.private">↳ Mesajınız Resend üzerinden direkt e-postama düşer.</p>
+            <p class="font-mono text-[10px] text-muted mt-2" data-i18n="ct.form.private">↳ Mesajınız güvenli biçimde iletilir.</p>
           </div>
 
           <div>
@@ -128,8 +128,11 @@ tailwind.config = {
 
         </form>
         <div id="formSuccess" class="hidden mt-8 p-6 rounded-2xl" style="background:rgba(212,178,84,0.08); border:1px solid rgba(212,178,84,0.3)">
-          <div class="font-display text-2xl tracking-tightest mb-2 accent">Brief alındı ✓</div>
-          <p class="text-muted text-[14px]">24 saat içinde geri dönüyorum. Çok uzun sürmeden bir taslak hazırlayıp size göndereceğim.</p>
+          <div class="font-display text-2xl tracking-tightest mb-2 accent">Talebiniz alındı ✓</div>
+          <p class="text-muted text-[14px]">Talebiniz alındı. 24 saat içinde dönüş yapılacaktır.</p>
+        </div>
+        <div id="formError" class="hidden mt-8 p-6 rounded-2xl" style="background:rgba(255,80,80,0.08); border:1px solid rgba(255,80,80,0.3)">
+          <p class="text-[14px]" style="color:#ff5050">Form gönderilemedi. Lütfen tekrar deneyin.</p>
         </div>
       </div>
 
@@ -198,28 +201,11 @@ tailwind.config = {
 </section>
 
 <script>
-// ════════════════════════════════════════════════════════════════
-// EMAİLJS KURULUMU — Gmail SMTP üzerinden e-posta gönderimi
-//
-// 1. emailjs.com → Ücretsiz hesap oluştur
-// 2. Email Services → Add Service → Gmail
-//    → Kendi Gmail hesabınla kimlik doğrula
-// 3. Email Templates → İki şablon oluştur:
-//    a) "contact_form"  — Değişkenler: {{from_name}}, {{from_email}},
-//                         {{brand}}, {{package}}, {{message}}
-//    b) "call_notify"   — Değişkenler: {{time}}
-// 4. Account → Public Key'i kopyala
-// 5. Aşağıdaki üç sabiti güncelle
-// ════════════════════════════════════════════════════════════════
-const EJS_PUBLIC_KEY    = 'YOUR_EMAILJS_PUBLIC_KEY';
-const EJS_SERVICE_ID    = 'YOUR_SERVICE_ID';
-const EJS_TEMPLATE_FORM = 'contact_form';
-const EJS_TEMPLATE_CALL = 'call_notify';
-const USE_EMAILJS = EJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY';
+const SUPABASE_URL_C      = 'https://gwwcbdwcmnmkextxchsm.supabase.co';
+const SUPABASE_ANON_KEY_C = 'sb_publishable_bqq6cpKXssMczfGSMrmErQ_esC0GdNO';
+const FORMSPREE_URL_C     = 'https://formspree.io/f/mbdwejqk';
 
-if (USE_EMAILJS && window.emailjs) {
-  emailjs.init({ publicKey: EJS_PUBLIC_KEY });
-}
+const sbClientC = window.supabase.createClient(SUPABASE_URL_C, SUPABASE_ANON_KEY_C);
 
 async function handleSubmit(e) {
   e.preventDefault();
@@ -227,37 +213,49 @@ async function handleSubmit(e) {
   const form = document.getElementById('contactForm');
   btn.disabled = true; btn.style.opacity = '0.6';
 
-  if (USE_EMAILJS && window.emailjs) {
-    const data = new FormData(form);
-    try {
-      await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_FORM, {
-        from_name:  data.get('name'),
-        from_email: data.get('email'),
-        brand:      data.get('brand') || '—',
-        package:    data.get('package') || 'Belirtilmedi',
-        message:    data.get('brief'),
-      });
-    } catch (err) {
-      console.error('EmailJS hatası:', err);
-    }
-  }
+  const fd      = new FormData(form);
+  const name    = (fd.get('name')  || '').trim();
+  const email   = (fd.get('email') || '').trim();
+  const company = (fd.get('brand') || '').trim();
+  const pkg     = fd.get('package') || 'Belirtilmedi';
+  const project = (fd.get('brief') || '').trim();
 
-  setTimeout(() => {
+  let success = false;
+
+  try {
+    const { error } = await sbClientC.from('tickets').insert([{
+      name: name, email: email, company: company, package: pkg, project: project, status: 'pending'
+    }]);
+    if (!error) success = true;
+  } catch(err) {}
+
+  try {
+    const res = await fetch(FORMSPREE_URL_C, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name: name, email: email, company: company, package: pkg, project: project, date: new Date().toISOString() })
+    });
+    if (res.ok) success = true;
+  } catch(err) {}
+
+  if (success) {
+    form.reset();
     form.style.display = 'none';
     document.getElementById('formSuccess').classList.remove('hidden');
-  }, 600);
-}
-
-function notifyCall() {
-  if (USE_EMAILJS && window.emailjs) {
-    emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_CALL, {
-      time: new Date().toLocaleString('tr-TR')
-    }).catch(console.error);
+    const errEl = document.getElementById('formError');
+    if (errEl) errEl.classList.add('hidden');
+  } else {
+    btn.disabled = false; btn.style.opacity = '1';
+    const errEl = document.getElementById('formError');
+    if (errEl) errEl.classList.remove('hidden');
   }
 }
+
+function notifyCall() {}
 </script>
 <script src="i18n.js"></script>
 <script src="shell.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
+
