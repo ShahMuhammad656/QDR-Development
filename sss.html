@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="tr" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SSS — QDR Studio</title>
+<meta name="description" content="Sık sorulan sorular. Belki aklındaki soru burada." />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" type="image/png" href="image.png" />
+<link rel="apple-touch-icon" href="image.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode:'class',
+  theme:{ extend:{
+    fontFamily:{ display:['"Clash Display"','ui-sans-serif','system-ui'], sans:['"Satoshi"','ui-sans-serif','system-ui'], mono:['"JetBrains Mono"','ui-monospace','monospace'] },
+    colors:{ ink:{950:'#0a0a0a',900:'#0f0f0f',850:'#141414',800:'#1a1a1a',700:'#262626'}, bone:{50:'#f7f6f3',100:'#eeece6',200:'#d9d6cd'}, gold:{DEFAULT:'#D4B254',400:'#E0C674',600:'#A98A36'}, violet:{DEFAULT:'#9D5BFF',400:'#B585FF',600:'#7B3AEB'} },
+    letterSpacing:{ tightest:'-0.045em' },
+  }}
+}
+</script>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="grain" data-page="faq" data-next="contact">
+
+<header class="page-head">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-10 grid grid-cols-12 gap-x-8 items-end">
+    <div class="col-span-12 lg:col-span-8">
+      <div class="eyebrow mb-5 will-reveal"><span class="dot"></span><span data-i18n="faq.eyebrow">08 / Sorular</span></div>
+      <h1 class="text-[clamp(48px,7vw,108px)] will-reveal">
+        <span data-i18n="faq.h1">Belki</span>
+        <span class="italic font-light accent" data-i18n="faq.h2"> aklındaki</span><br>
+        <span data-i18n="faq.h3">soru burada.</span>
+      </h1>
+    </div>
+    <div class="col-span-12 lg:col-span-4 mt-6 lg:mt-0 will-reveal">
+      <p class="text-muted text-[15px] max-w-[40ch] lg:text-right lg:ml-auto" data-i18n="faq.p">Yoksa: doğrudan yaz, 24 saat içinde yanıtlıyorum.</p>
+      <div class="mt-4 lg:text-right">
+        <a href="iletisim.html" class="font-mono text-[12px] accent hover:opacity-70 transition-opacity" data-i18n="faq.cta">Bir soru yaz →</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="py-20 lg:py-28">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-10">
+    <div class="grid grid-cols-12 gap-x-8">
+      <div class="col-span-12 lg:col-span-8 lg:col-start-3">
+
+        <div class="space-y-0">
+
+          <details class="faq will-reveal">
+            <summary class="flex items-center justify-between py-6 gap-6">
+              <span class="font-display text-xl lg:text-2xl tracking-tightest" data-i18n="faq.q1">Bir projenin ortalama maliyeti nedir?</span>
+              <span class="plus shrink-0 w-8 h-8 rounded-full border hairline-strong flex items-center justify-center text-lg font-light text-muted">+</span>
+            </summary>
+            <div class="body">
+              <p class="pb-6 text-muted text-[15px] leading-[1.7]" data-i18n="faq.a1">Bağlıdır ama şeffafım: marketing siteleri €7.5K–€22K, SaaS dashboard'ları €18K–€60K, e-ticaret platformları €15K–€45K aralığında. Her teklif sabit fiyatlı.</p>
+            </div>
+          </details>
+
+          <details class="faq will-reveal">
+            <summary class="flex items-center justify-between py-6 gap-6">
+              <span class="font-display text-xl lg:text-2xl tracking-tightest" data-i18n="faq.q2">Ne kadar sürede başlayabilirsin?</span>
+              <span class="plus shrink-0 w-8 h-8 rounded-full border hairline-strong flex items-center justify-center text-lg font-light text-muted">+</span>
+            </summary>
+            <div class="body">
+              <p class="pb-6 text-muted text-[15px] leading-[1.7]" data-i18n="faq.a2">Genellikle 2–4 hafta sonrası. Anlık acil işler için sınırlı sayıda "sprint" koltuğum oluyor — direkt sor. Q3 2026 için şu anda 2 koltuk açık.</p>
+            </div>
+          </details>
+
+          <details class="faq will-reveal">
+            <summary class="flex items-center justify-between py-6 gap-6">
+              <span class="font-display text-xl lg:text-2xl tracking-tightest" data-i18n="faq.q3">Tasarımı kim yapıyor?</span>
+              <span class="plus shrink-0 w-8 h-8 rounded-full border hairline-strong flex items-center justify-center text-lg font-light text-muted">+</span>
+            </summary>
+            <div class="body">
+              <p class="pb-6 text-muted text-[15px] leading-[1.7]" data-i18n="faq.a3">Ben. 2 yıllık ürün tasarımı geçmişim var. Markanızın brand guideline'ı varsa ona sadık kalırım; yoksa minimal bir görsel sistem öneririm. Komplike marka kimliği işlerini ortağım Studio Verda ile yürütüyoruz.</p>
+            </div>
+          </details>
+
+          <details class="faq will-reveal">
+            <summary class="flex items-center justify-between py-6 gap-6">
+              <span class="font-display text-xl lg:text-2xl tracking-tightest" data-i18n="faq.q4">Kodu kime devrediyorsun?</span>
+              <span class="plus shrink-0 w-8 h-8 rounded-full border hairline-strong flex items-center justify-center text-lg font-light text-muted">+</span>
+            </summary>
+            <div class="body">
+              <p class="pb-6 text-muted text-[15px] leading-[1.7]" data-i18n="faq.a4">Her şey sizin GitHub organizasyonunuza commit edilir. Repo, env'ler, dokümantasyon, Loom ekip eğitimi — hepsi sizin. Bir gün benimle çalışmak istemezseniz, bir başkasıyla devam edebilmeniz gerekir.</p>
+            </div>
+          </details>
+
+          <details class="faq will-reveal">
+            <summary class="flex items-center justify-between py-6 gap-6">
+              <span class="font-display text-xl lg:text-2xl tracking-tightest" data-i18n="faq.q5">Türkiye dışından çalışıyor musun?</span>
+              <span class="plus shrink-0 w-8 h-8 rounded-full border hairline-strong flex items-center justify-center text-lg font-light text-muted">+</span>
+            </summary>
+            <div class="body">
+              <p class="pb-6 text-muted text-[15px] leading-[1.7]" data-i18n="faq.a5">Müşterilerimin %70'i AB ve ABD'de. CET ±5 saat aralığında çalışabiliyorum. Faturalama EUR/USD/TRY destekli, Stripe veya banka havalesi.</p>
+            </div>
+          </details>
+
+          <details class="faq will-reveal">
+            <summary class="flex items-center justify-between py-6 gap-6">
+              <span class="font-display text-xl lg:text-2xl tracking-tightest" data-i18n="faq.q6">NDA imzalıyor musun?</span>
+              <span class="plus shrink-0 w-8 h-8 rounded-full border hairline-strong flex items-center justify-center text-lg font-light text-muted">+</span>
+            </summary>
+            <div class="body">
+              <p class="pb-6 text-muted text-[15px] leading-[1.7]" data-i18n="faq.a6">Evet, standart NDA'ler ve müşteri NDA'leri kabul ediyorum. Mutual NDA'leri 24 saat içinde imzalıyorum.</p>
+            </div>
+          </details>
+
+        </div>
+
+        <!-- CTA block -->
+        <div class="mt-16 card p-8 flex flex-col sm:flex-row items-center gap-6 will-reveal">
+          <div class="flex-1">
+            <div class="font-mono text-[10px] text-muted tracking-widest mb-2">SORULARINIZ VAR MI?</div>
+            <p class="font-display text-2xl tracking-tightest">Cevabını bulamadıysanız doğrudan yazın.</p>
+          </div>
+          <a href="iletisim.html" class="btn btn-primary shrink-0" data-magnetic>
+            <span>Mesaj gönder</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="i18n.js"></script>
+<script src="shell.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

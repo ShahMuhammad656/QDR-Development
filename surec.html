@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="tr" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Süreç — QDR Studio</title>
+<meta name="description" content="Briefing'den canlı yayına, altı haftada. Şeffaf, tahmin edilebilir, weekly demo'lu." />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" type="image/png" href="image.png" />
+<link rel="apple-touch-icon" href="image.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode:'class',
+  theme:{ extend:{
+    fontFamily:{ display:['"Clash Display"','ui-sans-serif','system-ui'], sans:['"Satoshi"','ui-sans-serif','system-ui'], mono:['"JetBrains Mono"','ui-monospace','monospace'] },
+    colors:{ ink:{950:'#0a0a0a',900:'#0f0f0f',850:'#141414',800:'#1a1a1a',700:'#262626'}, bone:{50:'#f7f6f3',100:'#eeece6',200:'#d9d6cd'}, gold:{DEFAULT:'#D4B254',400:'#E0C674',600:'#A98A36'}, violet:{DEFAULT:'#9D5BFF',400:'#B585FF',600:'#7B3AEB'} },
+    letterSpacing:{ tightest:'-0.045em' },
+  }}
+}
+</script>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="grain" data-page="process" data-next="testimonials">
+
+<header class="page-head">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-10 grid grid-cols-12 gap-x-8 items-end">
+    <div class="col-span-12 lg:col-span-8">
+      <div class="eyebrow mb-5 will-reveal"><span class="dot"></span><span data-i18n="proc.eyebrow">05 / Süreç</span></div>
+      <h1 class="text-[clamp(48px,7vw,108px)] will-reveal">
+        <span data-i18n="proc.h1">Briefing'den</span><br>
+        <span class="italic font-light accent" data-i18n="proc.h2">canlı yayına,</span><br>
+        <span data-i18n="proc.h3">altı haftada.</span>
+      </h1>
+    </div>
+    <div class="col-span-12 lg:col-span-4 mt-6 lg:mt-0 will-reveal">
+      <p class="text-muted text-[15px] max-w-[40ch] lg:text-right lg:ml-auto" data-i18n="proc.p">Şeffaf, tahmin edilebilir, weekly demo'lu. Her adım Notion'da canlı.</p>
+    </div>
+  </div>
+</header>
+
+<section class="py-20 lg:py-28">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-10">
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- Step 1 -->
+      <div class="card p-8 will-reveal">
+        <div class="flex items-start gap-6">
+          <div class="shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-display text-xl tracking-tightest" style="background:rgba(212,178,84,0.12); border:1px solid rgba(212,178,84,0.3); color:var(--accent)">01</div>
+          <div class="flex-1">
+            <div class="font-mono text-[10px] text-muted tracking-widest mb-3">HAFTA 0</div>
+            <h3 class="font-display text-2xl tracking-tightest leading-[1.1] mb-3" data-i18n="proc.s1.t">Keşif çağrısı</h3>
+            <p class="text-muted text-[14px] leading-[1.65]" data-i18n="proc.s1.b">45 dk. Ücretsiz. Hedef, kısıt, başarı metrikleri. Çıktı: yazılı brief + uygunluk kararı.</p>
+            <div class="mt-5 pt-5 border-t hairline">
+              <div class="font-mono text-[10px] text-muted tracking-widest mb-2">ÇIKTILAR</div>
+              <p class="text-[12px] text-muted" data-i18n="proc.s1.o">Yazılı brief · Fit decision · Müsaitlik takvimi</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="card p-8 will-reveal">
+        <div class="flex items-start gap-6">
+          <div class="shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-display text-xl tracking-tightest" style="background:rgba(212,178,84,0.12); border:1px solid rgba(212,178,84,0.3); color:var(--accent)">02</div>
+          <div class="flex-1">
+            <div class="font-mono text-[10px] text-muted tracking-widest mb-3">HAFTA 1</div>
+            <h3 class="font-display text-2xl tracking-tightest leading-[1.1] mb-3" data-i18n="proc.s2.t">Strateji & teklif</h3>
+            <p class="text-muted text-[14px] leading-[1.65]" data-i18n="proc.s2.b">5 iş günü. Mimari karar, sprint planı, sabit fiyat. İmza sonrası 7 gün içinde başlıyoruz.</p>
+            <div class="mt-5 pt-5 border-t hairline">
+              <div class="font-mono text-[10px] text-muted tracking-widest mb-2">ÇIKTILAR</div>
+              <p class="text-[12px] text-muted" data-i18n="proc.s2.o">SoW · Mimari diyagramı · Sprint takvimi</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="card p-8 will-reveal">
+        <div class="flex items-start gap-6">
+          <div class="shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-display text-xl tracking-tightest" style="background:rgba(157,91,255,0.12); border:1px solid rgba(157,91,255,0.3); color:var(--accent-2)">03</div>
+          <div class="flex-1">
+            <div class="font-mono text-[10px] text-muted tracking-widest mb-3">HAFTA 1–2</div>
+            <h3 class="font-display text-2xl tracking-tightest leading-[1.1] mb-3" data-i18n="proc.s3.t">Tasarım sprint'i</h3>
+            <p class="text-muted text-[14px] leading-[1.65]" data-i18n="proc.s3.b">1–2 hafta. Figma, prototip, mikro-etkileşim. Hafta sonu canlı review.</p>
+            <div class="mt-5 pt-5 border-t hairline">
+              <div class="font-mono text-[10px] text-muted tracking-widest mb-2">ÇIKTILAR</div>
+              <p class="text-[12px] text-muted" data-i18n="proc.s3.o">Figma file · Tıklanabilir prototip · Design system</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="card p-8 will-reveal">
+        <div class="flex items-start gap-6">
+          <div class="shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-display text-xl tracking-tightest" style="background:rgba(157,91,255,0.12); border:1px solid rgba(157,91,255,0.3); color:var(--accent-2)">04</div>
+          <div class="flex-1">
+            <div class="font-mono text-[10px] text-muted tracking-widest mb-3">HAFTA 2–5</div>
+            <h3 class="font-display text-2xl tracking-tightest leading-[1.1] mb-3" data-i18n="proc.s4.t">Geliştirme</h3>
+            <p class="text-muted text-[14px] leading-[1.65]" data-i18n="proc.s4.b">3–4 hafta. Haftalık Loom demo. Staging linki her zaman canlı. Slack'te 24 saat içinde cevap.</p>
+            <div class="mt-5 pt-5 border-t hairline">
+              <div class="font-mono text-[10px] text-muted tracking-widest mb-2">ÇIKTILAR</div>
+              <p class="text-[12px] text-muted" data-i18n="proc.s4.o">Production build · GitHub repo · Test coverage 80%+</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Step 5 — full width launch -->
+    <div class="card pop p-8 lg:p-10 mt-6 will-reveal">
+      <div class="grid grid-cols-12 gap-x-8 gap-y-6 items-center">
+        <div class="col-span-12 lg:col-span-1">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center font-display text-xl tracking-tightest" style="background:rgba(212,178,84,0.2); border:1px solid rgba(212,178,84,0.4); color:var(--accent)">05</div>
+        </div>
+        <div class="col-span-12 lg:col-span-5">
+          <div class="font-mono text-[10px] text-muted tracking-widest mb-3">HAFTA 6 · LAUNCH DAY</div>
+          <h3 class="font-display text-3xl tracking-tightest leading-[1.1] mb-3" data-i18n="proc.s5.t">Yayın & devir</h3>
+          <p class="text-muted text-[14px] leading-[1.65]" data-i18n="proc.s5.b">Launch günü ben hattım. 30 gün ücretsiz garanti, 90 gün retainer opsiyonu. Tam dokümantasyon + Loom ekip eğitimi.</p>
+        </div>
+        <div class="col-span-12 lg:col-span-6">
+          <div class="font-mono text-[10px] text-muted tracking-widest mb-3">ÇIKTILAR</div>
+          <p class="text-[14px] text-muted" data-i18n="proc.s5.o">Canlı yayın · Dokümantasyon · 30 gün garanti</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="iletisim.html" class="btn btn-primary" data-magnetic>
+              <span>Süreci başlat</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="paketler.html" class="btn btn-ghost" data-magnetic>Fiyatları gör</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline visual -->
+    <div class="mt-16 grid grid-cols-5 gap-px hairline-strong border-t border-b py-8 will-reveal">
+      <div class="px-4 text-center">
+        <div class="font-mono text-[10px] text-muted tracking-widest mb-2">HAFTA 0</div>
+        <div class="font-display text-lg tracking-tightest">Keşif</div>
+      </div>
+      <div class="px-4 text-center border-l hairline">
+        <div class="font-mono text-[10px] text-muted tracking-widest mb-2">HAFTA 1</div>
+        <div class="font-display text-lg tracking-tightest">Strateji</div>
+      </div>
+      <div class="px-4 text-center border-l hairline">
+        <div class="font-mono text-[10px] text-muted tracking-widest mb-2">HAFTA 1–2</div>
+        <div class="font-display text-lg tracking-tightest accent">Tasarım</div>
+      </div>
+      <div class="px-4 text-center border-l hairline">
+        <div class="font-mono text-[10px] text-muted tracking-widest mb-2">HAFTA 2–5</div>
+        <div class="font-display text-lg tracking-tightest accent-2">Build</div>
+      </div>
+      <div class="px-4 text-center border-l hairline">
+        <div class="font-mono text-[10px] text-muted tracking-widest mb-2">HAFTA 6</div>
+        <div class="font-display text-lg tracking-tightest accent">Launch</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script src="i18n.js"></script>
+<script src="shell.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

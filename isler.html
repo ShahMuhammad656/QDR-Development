@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="tr" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>İşler — QDR Studio</title>
+<meta name="description" content="Beş seçilmiş vaka çalışması. Tamamı ölçülen, NDA dışı, müşteri onaylı." />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" type="image/png" href="image.png" />
+<link rel="apple-touch-icon" href="image.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode:'class',
+  theme:{ extend:{
+    fontFamily:{ display:['"Clash Display"','ui-sans-serif','system-ui'], sans:['"Satoshi"','ui-sans-serif','system-ui'], mono:['"JetBrains Mono"','ui-monospace','monospace'] },
+    colors:{ ink:{950:'#0a0a0a',900:'#0f0f0f',850:'#141414',800:'#1a1a1a',700:'#262626'}, bone:{50:'#f7f6f3',100:'#eeece6',200:'#d9d6cd'}, gold:{DEFAULT:'#D4B254',400:'#E0C674',600:'#A98A36'}, violet:{DEFAULT:'#9D5BFF',400:'#B585FF',600:'#7B3AEB'} },
+    letterSpacing:{ tightest:'-0.045em' },
+  }}
+}
+</script>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="grain" data-page="work" data-next="process">
+
+<header class="page-head">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-10 grid grid-cols-12 gap-x-8 items-end">
+    <div class="col-span-12 lg:col-span-8">
+      <div class="eyebrow mb-5 will-reveal"><span class="dot"></span><span data-i18n="work.eyebrow">04 / Vaka çalışmaları</span></div>
+      <h1 class="text-[clamp(48px,7vw,108px)] will-reveal">
+        <span class="italic font-light accent" data-i18n="work.h1">Sorun.</span>
+        <span data-i18n="work.h2"> Çözüm.</span><br>
+        <span data-i18n="work.h3">Sonuç.</span>
+      </h1>
+    </div>
+    <div class="col-span-12 lg:col-span-4 mt-6 lg:mt-0 will-reveal">
+      <p class="text-muted text-[15px] max-w-[40ch] lg:text-right lg:ml-auto" data-i18n="work.p">Beş seçilmiş iş. Tamamı ölçülen, NDA dışı, müşteri onaylı.</p>
+    </div>
+  </div>
+</header>
+
+<section class="py-20 lg:py-28">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-10 space-y-8">
+
+    <!--
+    ═══════════════════════════════════════════════════════════════
+    PROJE EKLEMEK İÇİN:
+    Aşağıdaki şablonu kopyalayıp çoğaltın.
+    Sayıyı (01, 02...), kategoriyi, şehir/yılı, proje adını,
+    etiketleri, sonuç metriğini ve sorun/çözüm paragraflarını
+    doldurun. accent rengi için style="background:rgba(212,178,84,...)"
+    kullanın, accent-2 için rgba(157,91,255,...).
+    ═══════════════════════════════════════════════════════════════
+    -->
+
+    <!-- ── PROJE ŞABLONU ──────────────────────────────────────────
+    <div class="card p-8 lg:p-10 will-reveal">
+      <div class="grid grid-cols-12 gap-x-8 gap-y-6">
+        <div class="col-span-12 lg:col-span-5">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="font-mono text-[10px] text-muted tracking-widest">01 / KATEGORİ</div>
+            <div class="font-mono text-[10px] text-muted">Şehir · Yıl</div>
+          </div>
+          <h2 class="font-display text-4xl lg:text-5xl tracking-tightest leading-[1] mb-4">PROJE ADI</h2>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="font-mono text-[10px] border hairline rounded-full px-3 py-1">Teknoloji 1</span>
+            <span class="font-mono text-[10px] border hairline rounded-full px-3 py-1">Teknoloji 2</span>
+          </div>
+          <div class="mt-6 p-4 rounded-2xl" style="background:rgba(212,178,84,0.07); border:1px solid rgba(212,178,84,0.2)">
+            <div class="font-mono text-[10px] text-muted tracking-widest mb-2">SONUÇ</div>
+            <div class="font-display text-3xl tracking-tightest accent">Metrik burada</div>
+            <div class="text-[12px] text-muted mt-1">Açıklama</div>
+          </div>
+        </div>
+        <div class="col-span-12 lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <div class="font-mono text-[10px] text-muted tracking-widest mb-3">SORUN</div>
+            <p class="text-[14px] leading-[1.7] text-muted">Projenin çözdüğü sorunu buraya yazın.</p>
+          </div>
+          <div>
+            <div class="font-mono text-[10px] text-muted tracking-widest mb-3">ÇÖZÜM</div>
+            <p class="text-[14px] leading-[1.7] text-muted">Uyguladığınız çözümü buraya yazın.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    ── /PROJE ŞABLONU ─────────────────────────────────────────── -->
+
+    <!-- Henüz proje eklenmedi -->
+    <div class="card p-14 will-reveal flex flex-col items-center justify-center text-center" style="min-height:360px; border-style:dashed">
+      <div class="font-mono text-[10px] text-muted tracking-widest mb-4">YAKINDA</div>
+      <p class="font-display text-3xl lg:text-4xl tracking-tightest mb-4">Projeler yolda.</p>
+      <p class="text-muted text-[14px] max-w-[42ch] leading-[1.7]">Tamamlanan projeler burada yayınlanacak. Bir iş için konuşmak ister misiniz?</p>
+      <a href="iletisim.html" class="btn btn-primary mt-8" data-magnetic>
+        <span>İletişime geç →</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script src="i18n.js"></script>
+<script src="shell.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

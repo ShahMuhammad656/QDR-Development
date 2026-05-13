@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="tr" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>İletişim — QDR Studio</title>
+<meta name="description" content="Bir kahve, bir brief, bir karar. 45 dakikalık keşif görüşmesi ücretsiz." />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" type="image/png" href="image.png" />
+<link rel="apple-touch-icon" href="image.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode:'class',
+  theme:{ extend:{
+    fontFamily:{ display:['"Clash Display"','ui-sans-serif','system-ui'], sans:['"Satoshi"','ui-sans-serif','system-ui'], mono:['"JetBrains Mono"','ui-monospace','monospace'] },
+    colors:{ ink:{950:'#0a0a0a',900:'#0f0f0f',850:'#141414',800:'#1a1a1a',700:'#262626'}, bone:{50:'#f7f6f3',100:'#eeece6',200:'#d9d6cd'}, gold:{DEFAULT:'#D4B254',400:'#E0C674',600:'#A98A36'}, violet:{DEFAULT:'#9D5BFF',400:'#B585FF',600:'#7B3AEB'} },
+    letterSpacing:{ tightest:'-0.045em' },
+  }}
+}
+</script>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+.form-field{
+  width:100%; background:transparent; border:none; border-bottom:1px solid var(--line-strong);
+  padding: 12px 0; font-family:'Satoshi'; font-size:15px; color:var(--fg);
+  outline:none; transition: border-color .2s;
+}
+.form-field:focus{ border-color: var(--accent); }
+.form-field::placeholder{ color: var(--muted); }
+.form-label{ font-family:'JetBrains Mono'; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+.radio-opt{ display:flex; align-items:center; gap:10px; cursor:pointer; padding: 10px 14px; border-radius:999px; border:1px solid var(--line); transition: border-color .2s, background .2s; font-size:13px; }
+.radio-opt:has(input:checked){ border-color: var(--accent); background: rgba(212,178,84,0.08); }
+.radio-opt input{ display:none; }
+</style>
+</head>
+<body class="grain" data-page="contact">
+
+<header class="page-head">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-10 grid grid-cols-12 gap-x-8 items-end">
+    <div class="col-span-12 lg:col-span-8">
+      <div class="eyebrow mb-5 will-reveal"><span class="dot"></span><span data-i18n="ct.eyebrow">09 / Konuşalım</span></div>
+      <h1 class="text-[clamp(48px,7vw,108px)] will-reveal">
+        <span data-i18n="ct.h1">Bir kahve,</span><br>
+        <span class="italic font-light accent" data-i18n="ct.h2">bir brief,</span><br>
+        <span data-i18n="ct.h3">bir karar.</span>
+      </h1>
+    </div>
+    <div class="col-span-12 lg:col-span-4 mt-6 lg:mt-0 will-reveal">
+      <p class="text-muted text-[15px] max-w-[40ch] lg:text-right lg:ml-auto" data-i18n="ct.p">45 dakikalık keşif görüşmesi ücretsiz. Sonunda fit değilsek, sizi tanıdığım iki başka geliştiriciye yönlendiriyorum.</p>
+    </div>
+  </div>
+</header>
+
+<section class="py-20 lg:py-28">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-10">
+    <div class="grid grid-cols-12 gap-x-8 gap-y-12">
+
+      <!-- Left: Form -->
+      <div class="col-span-12 lg:col-span-7 will-reveal">
+        <div class="flex items-center justify-between mb-8">
+          <div class="font-mono text-[10px] text-muted tracking-widest" data-i18n="ct.form.eyebrow">YENİ PROJE / BRIEF</div>
+          <div class="flex items-center gap-2 font-mono text-[10px]">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            <span class="text-muted" data-i18n="ct.form.status">● 24 SAAT YANIT</span>
+          </div>
+        </div>
+
+        <form id="contactForm" class="space-y-8" onsubmit="handleSubmit(event)">
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div>
+              <label class="form-label block mb-2" data-i18n="ct.form.name">İSİM</label>
+              <input type="text" name="name" class="form-field" placeholder="Adınız Soyadınız" required />
+            </div>
+            <div>
+              <label class="form-label block mb-2" data-i18n="ct.form.email">E-POSTA</label>
+              <input type="email" name="email" class="form-field" placeholder="siz@sirket.com" required />
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label block mb-2" data-i18n="ct.form.brand">MARKA / ŞİRKET</label>
+            <input type="text" name="brand" class="form-field" placeholder="Şirket veya proje adı" />
+          </div>
+
+          <div>
+            <label class="form-label block mb-4" data-i18n="ct.form.pkg">İLGİLENİLEN PAKET</label>
+            <div class="flex flex-wrap gap-2">
+              <label class="radio-opt">
+                <input type="radio" name="package" value="launch" />
+                Launch
+              </label>
+              <label class="radio-opt">
+                <input type="radio" name="package" value="atelier" />
+                Atelier
+              </label>
+              <label class="radio-opt">
+                <input type="radio" name="package" value="enterprise" />
+                Enterprise
+              </label>
+              <label class="radio-opt">
+                <input type="radio" name="package" value="unsure" />
+                <span data-i18n="ct.form.unsure">Emin değilim</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label block mb-2" data-i18n="ct.form.brief">PROJE</label>
+            <textarea name="brief" class="form-field" rows="4" placeholder="Projenizi kısaca anlatın: hedef, kısıt, zaman çizelgesi..." required style="resize:none; padding-bottom:12px"></textarea>
+            <p class="font-mono text-[10px] text-muted mt-2" data-i18n="ct.form.private">↳ Mesajınız Resend üzerinden direkt e-postama düşer.</p>
+          </div>
+
+          <div>
+            <button type="submit" class="btn btn-primary" id="submitBtn" data-magnetic>
+              <span data-i18n="ct.form.submit">Bileti gönder →</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+
+        </form>
+        <div id="formSuccess" class="hidden mt-8 p-6 rounded-2xl" style="background:rgba(212,178,84,0.08); border:1px solid rgba(212,178,84,0.3)">
+          <div class="font-display text-2xl tracking-tightest mb-2 accent">Brief alındı ✓</div>
+          <p class="text-muted text-[14px]">24 saat içinde geri dönüyorum. Çok uzun sürmeden bir taslak hazırlayıp size göndereceğim.</p>
+        </div>
+      </div>
+
+      <!-- Right: Cal + Info -->
+      <div class="col-span-12 lg:col-span-5 space-y-6 will-reveal">
+
+        <!-- Cal block -->
+        <div class="card p-7">
+          <div class="font-mono text-[10px] text-muted tracking-widest mb-4">TAKVİM</div>
+          <h3 class="font-display text-2xl tracking-tightest mb-2" data-i18n="ct.cal.h">Cal.com üzerinden takvimden seç</h3>
+          <p class="text-muted text-[13px] mb-5" data-i18n="ct.cal.s">15 ya da 45 dk slot · video link otomatik</p>
+          <a href="https://cal.com" target="_blank" rel="noopener" onclick="notifyCall()" class="btn btn-ghost w-full justify-between" data-magnetic>
+            <span data-i18n="ct.cal">15 dk hızlı çağrı</span>
+            <span data-i18n="ct.cal.cta" class="accent">Aç →</span>
+          </a>
+        </div>
+
+        <!-- Direct info -->
+        <div class="card p-7">
+          <div class="font-mono text-[10px] text-muted tracking-widest mb-5">HIZLI ERİŞİM</div>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between py-3 border-b hairline">
+              <div class="font-mono text-[11px] text-muted">E-POSTA</div>
+              <a href="mailto:syedshahmuhammadmohiuddin@gmail.com" class="text-[14px] hover:text-[var(--accent)] transition-colors">syedshahmuhammadmohiuddin@gmail.com</a>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b hairline">
+              <div class="font-mono text-[11px] text-muted">WHATSAPP</div>
+              <a href="https://wa.me/905316089964" target="_blank" rel="noopener" class="flex items-center gap-2 text-[14px] hover:text-[var(--accent)] transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                0531 608 99 64
+              </a>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b hairline">
+              <div class="font-mono text-[11px] text-muted">YANIT SÜRESİ</div>
+              <div class="text-[14px]">≤ 24 saat</div>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b hairline">
+              <div class="font-mono text-[11px] text-muted">MÜSAİTLİK</div>
+              <div class="text-[14px]"><span class="accent">●</span> Q3 2026 · 2 koltuk</div>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b hairline">
+              <div class="font-mono text-[11px] text-muted">TIMEZONE</div>
+              <div class="text-[14px]">TRT +3 · Ankara</div>
+            </div>
+            <div class="flex items-center justify-between py-3">
+              <div class="font-mono text-[11px] text-muted">FATURALAMA</div>
+              <div class="text-[14px]">EUR / USD / TRY</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social links -->
+        <div class="card p-7">
+          <div class="font-mono text-[10px] text-muted tracking-widest mb-5">SOSYAL</div>
+          <div class="flex gap-3">
+            <a href="https://github.com/ShahMuhammad656" target="_blank" rel="noopener" class="flex items-center gap-2 text-[13px] text-muted hover:text-[var(--fg)] transition-colors">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// ════════════════════════════════════════════════════════════════
+// EMAİLJS KURULUMU — Gmail SMTP üzerinden e-posta gönderimi
+//
+// 1. emailjs.com → Ücretsiz hesap oluştur
+// 2. Email Services → Add Service → Gmail
+//    → Kendi Gmail hesabınla kimlik doğrula
+// 3. Email Templates → İki şablon oluştur:
+//    a) "contact_form"  — Değişkenler: {{from_name}}, {{from_email}},
+//                         {{brand}}, {{package}}, {{message}}
+//    b) "call_notify"   — Değişkenler: {{time}}
+// 4. Account → Public Key'i kopyala
+// 5. Aşağıdaki üç sabiti güncelle
+// ════════════════════════════════════════════════════════════════
+const EJS_PUBLIC_KEY    = 'YOUR_EMAILJS_PUBLIC_KEY';
+const EJS_SERVICE_ID    = 'YOUR_SERVICE_ID';
+const EJS_TEMPLATE_FORM = 'contact_form';
+const EJS_TEMPLATE_CALL = 'call_notify';
+const USE_EMAILJS = EJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY';
+
+if (USE_EMAILJS && window.emailjs) {
+  emailjs.init({ publicKey: EJS_PUBLIC_KEY });
+}
+
+async function handleSubmit(e) {
+  e.preventDefault();
+  const btn  = document.getElementById('submitBtn');
+  const form = document.getElementById('contactForm');
+  btn.disabled = true; btn.style.opacity = '0.6';
+
+  if (USE_EMAILJS && window.emailjs) {
+    const data = new FormData(form);
+    try {
+      await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_FORM, {
+        from_name:  data.get('name'),
+        from_email: data.get('email'),
+        brand:      data.get('brand') || '—',
+        package:    data.get('package') || 'Belirtilmedi',
+        message:    data.get('brief'),
+      });
+    } catch (err) {
+      console.error('EmailJS hatası:', err);
+    }
+  }
+
+  setTimeout(() => {
+    form.style.display = 'none';
+    document.getElementById('formSuccess').classList.remove('hidden');
+  }, 600);
+}
+
+function notifyCall() {
+  if (USE_EMAILJS && window.emailjs) {
+    emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_CALL, {
+      time: new Date().toLocaleString('tr-TR')
+    }).catch(console.error);
+  }
+}
+</script>
+<script src="i18n.js"></script>
+<script src="shell.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

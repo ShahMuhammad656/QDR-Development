@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="tr" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Yorumlar — QDR Studio</title>
+<meta name="description" content="Müşteri yorumları. Cümleler bana ait değil, onlara ait." />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" type="image/png" href="image.png" />
+<link rel="apple-touch-icon" href="image.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode:'class',
+  theme:{ extend:{
+    fontFamily:{ display:['"Clash Display"','ui-sans-serif','system-ui'], sans:['"Satoshi"','ui-sans-serif','system-ui'], mono:['"JetBrains Mono"','ui-monospace','monospace'] },
+    colors:{ ink:{950:'#0a0a0a',900:'#0f0f0f',850:'#141414',800:'#1a1a1a',700:'#262626'}, bone:{50:'#f7f6f3',100:'#eeece6',200:'#d9d6cd'}, gold:{DEFAULT:'#D4B254',400:'#E0C674',600:'#A98A36'}, violet:{DEFAULT:'#9D5BFF',400:'#B585FF',600:'#7B3AEB'} },
+    letterSpacing:{ tightest:'-0.045em' },
+  }}
+}
+</script>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="grain" data-page="testimonials" data-next="pricing">
+
+<header class="page-head">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-10 grid grid-cols-12 gap-x-8 items-end">
+    <div class="col-span-12 lg:col-span-8">
+      <div class="eyebrow mb-5 will-reveal"><span class="dot"></span><span data-i18n="tst.eyebrow">06 / Müşteriler</span></div>
+      <h1 class="text-[clamp(48px,7vw,108px)] will-reveal">
+        <span data-i18n="tst.h1">Cümleler bana ait değil.</span><br>
+        <span class="italic font-light accent" data-i18n="tst.h2">Onlara ait.</span>
+      </h1>
+    </div>
+    <div class="col-span-12 lg:col-span-4 mt-6 lg:mt-0 will-reveal">
+      <p class="text-muted text-[15px] max-w-[40ch] lg:text-right lg:ml-auto">Birlikte çalıştığımız müşterilerin deneyimlerini paylaşabileceği bir alan. Her yorum incelendikten sonra yayınlanır.</p>
+    </div>
+  </div>
+</header>
+
+<section class="py-20 lg:py-28">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-10">
+
+    <!-- Published reviews -->
+    <div id="reviewsSection" class="mb-16 hidden">
+      <div class="font-mono text-[10px] text-muted tracking-widest mb-6">YAYINLANAN YORUMLAR</div>
+      <div id="reviewsList" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    </div>
+
+    <!-- Admin panel — visible at ?admin=true -->
+    <div id="adminPanel" class="mb-16 hidden">
+      <div class="card p-8" style="border-color:var(--accent)">
+        <div class="font-mono text-[10px] tracking-widest mb-6 accent">ADMİN — BEKLEYEN YORUMLAR</div>
+        <div id="pendingList" class="space-y-4"></div>
+        <p id="noPending" class="hidden text-muted text-[13px]">Bekleyen yorum yok.</p>
+      </div>
+    </div>
+
+    <!-- Review submission form -->
+    <div class="grid grid-cols-12 gap-x-8 gap-y-10">
+
+      <div class="col-span-12 lg:col-span-7 will-reveal">
+        <div class="font-mono text-[10px] text-muted tracking-widest mb-8">YORUM BIRAK</div>
+        <form id="reviewForm" class="space-y-8" onsubmit="submitReview(event)">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div>
+              <label class="block font-mono text-[10px] text-muted tracking-widest mb-2">İSİM</label>
+              <input type="text" name="name" required placeholder="Adınız Soyadınız"
+                class="w-full bg-transparent border-b py-3 text-[15px] outline-none transition-colors focus:border-[var(--accent)]"
+                style="border-color:var(--line-strong); color:var(--fg);" />
+            </div>
+            <div>
+              <label class="block font-mono text-[10px] text-muted tracking-widest mb-2">ŞİRKET / UNVAN</label>
+              <input type="text" name="company" placeholder="Kurucu · Şirket Adı"
+                class="w-full bg-transparent border-b py-3 text-[15px] outline-none transition-colors focus:border-[var(--accent)]"
+                style="border-color:var(--line-strong); color:var(--fg);" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-mono text-[10px] text-muted tracking-widest mb-2">E-POSTA</label>
+            <input type="email" name="email" required placeholder="siz@sirket.com"
+              class="w-full bg-transparent border-b py-3 text-[15px] outline-none transition-colors focus:border-[var(--accent)]"
+              style="border-color:var(--line-strong); color:var(--fg);" />
+          </div>
+
+          <div>
+            <label class="block font-mono text-[10px] text-muted tracking-widest mb-2">YORUMUNUZ</label>
+            <textarea name="review" required rows="5" placeholder="Birlikte çalışma deneyimizi paylaşın..."
+              class="w-full bg-transparent border-b py-3 text-[15px] outline-none transition-colors focus:border-[var(--accent)]"
+              style="border-color:var(--line-strong); color:var(--fg); resize:none;"></textarea>
+          </div>
+
+          <div>
+            <label class="block font-mono text-[10px] text-muted tracking-widest mb-3">PUAN</label>
+            <div class="flex gap-2" id="starRating">
+              <button type="button" data-star="1" class="star-btn font-mono text-2xl text-muted hover:text-[var(--accent)] transition-colors" onclick="setRating(1)">★</button>
+              <button type="button" data-star="2" class="star-btn font-mono text-2xl text-muted hover:text-[var(--accent)] transition-colors" onclick="setRating(2)">★</button>
+              <button type="button" data-star="3" class="star-btn font-mono text-2xl text-muted hover:text-[var(--accent)] transition-colors" onclick="setRating(3)">★</button>
+              <button type="button" data-star="4" class="star-btn font-mono text-2xl text-muted hover:text-[var(--accent)] transition-colors" onclick="setRating(4)">★</button>
+              <button type="button" data-star="5" class="star-btn font-mono text-2xl text-muted hover:text-[var(--accent)] transition-colors" onclick="setRating(5)">★</button>
+            </div>
+            <input type="hidden" name="rating" id="ratingValue" value="" />
+          </div>
+
+          <div>
+            <button type="submit" class="btn btn-primary" id="reviewSubmitBtn" data-magnetic>
+              <span>Yorumu gönder →</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </form>
+
+        <div id="reviewSuccess" class="hidden mt-8 p-6 rounded-2xl" style="background:rgba(212,178,84,0.08); border:1px solid rgba(212,178,84,0.3)">
+          <div class="font-display text-2xl tracking-tightest mb-2 accent">Teşekkürler ✓</div>
+          <p class="text-muted text-[14px]">Yorumunuz alındı. İnceledikten sonra burada yayınlanacak.</p>
+        </div>
+      </div>
+
+      <div class="col-span-12 lg:col-span-5 will-reveal">
+        <div class="font-mono text-[10px] text-muted tracking-widest mb-8">NASIL ÇALIŞIYOR?</div>
+        <div class="space-y-6">
+          <div class="flex gap-4">
+            <div class="w-8 h-8 rounded-full shrink-0 flex items-center justify-center font-mono text-[11px]" style="background:rgba(212,178,84,0.12); color:var(--accent)">01</div>
+            <div>
+              <div class="text-[14px] font-medium mb-1">Formu doldurun</div>
+              <p class="text-muted text-[13px] leading-[1.65]">İsim, şirket ve deneyiminizi kısaca paylaşın.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="w-8 h-8 rounded-full shrink-0 flex items-center justify-center font-mono text-[11px]" style="background:rgba(212,178,84,0.12); color:var(--accent)">02</div>
+            <div>
+              <div class="text-[14px] font-medium mb-1">İnceleme</div>
+              <p class="text-muted text-[13px] leading-[1.65]">Yorumunuz kısa bir incelemeden geçer.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="w-8 h-8 rounded-full shrink-0 flex items-center justify-center font-mono text-[11px]" style="background:rgba(212,178,84,0.12); color:var(--accent)">03</div>
+            <div>
+              <div class="text-[14px] font-medium mb-1">Yayın</div>
+              <p class="text-muted text-[13px] leading-[1.65]">Onaylanan yorumlar bu sayfada görünür hale gelir.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 card p-7">
+          <div class="font-mono text-[10px] text-muted tracking-widest mb-4">GIZLILIK</div>
+          <p class="text-[13px] text-muted leading-[1.7]">E-posta adresiniz yalnızca doğrulama amacıyla kullanılır, sitede gösterilmez. Yorumunuz yayınlanmadan önce sizinle iletişime geçilecektir.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// SUPABASE KURULUMU  (isteğe bağlı — şimdilik localStorage çalışır)
+//
+// 1. supabase.com → Yeni proje oluştur (ücretsiz)
+// 2. SQL Editor'da şunu çalıştır:
+//
+//   CREATE TABLE reviews (
+//     id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+//     name text NOT NULL,
+//     company text,
+//     review text NOT NULL,
+//     rating int NOT NULL,
+//     approved boolean DEFAULT false,
+//     created_at timestamptz DEFAULT now()
+//   );
+//   ALTER TABLE reviews ENABLE ROW LEVEL SECURITY;
+//   CREATE POLICY "public_select" ON reviews FOR SELECT USING (approved = true);
+//   CREATE POLICY "public_insert" ON reviews FOR INSERT WITH CHECK (true);
+//
+// 3. Project Settings → API → URL ve anon key'i al
+// 4. Aşağıdaki iki sabiti güncelle
+// ══════════════════════════════════════════════════════════════
+const SUPABASE_URL      = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const USE_SUPABASE = SUPABASE_URL !== 'YOUR_SUPABASE_URL';
+
+let sbClient = null;
+if (USE_SUPABASE && window.supabase) {
+  sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
+// ── localStorage helpers ──────────────────────────────────────
+const LS_KEY = 'qdr_reviews';
+function lsGet() { try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch { return []; } }
+function lsSet(arr) { localStorage.setItem(LS_KEY, JSON.stringify(arr)); }
+
+// ── Render a review card ──────────────────────────────────────
+function buildCard(r, isAdmin) {
+  const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+  const date  = r.created_at ? new Date(r.created_at).toLocaleDateString('tr-TR') : '';
+  const initial = (r.name || '?')[0].toUpperCase();
+  return `
+    <div class="card p-8 ${isAdmin ? 'opacity-70' : ''}">
+      <div class="font-mono text-[11px] mb-3" style="color:var(--accent)">${stars}</div>
+      <p class="text-[15px] leading-[1.7] mb-6">"${r.review}"</p>
+      <div class="pt-5 border-t hairline flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full shrink-0 flex items-center justify-center font-display text-[13px]"
+             style="background:rgba(212,178,84,0.15); color:var(--accent)">${initial}</div>
+        <div>
+          <div class="text-[13px] font-medium">${r.name}</div>
+          ${r.company ? `<div class="font-mono text-[10px] text-muted">${r.company}</div>` : ''}
+        </div>
+        ${date ? `<div class="ml-auto font-mono text-[10px] text-muted">${date}</div>` : ''}
+        ${isAdmin ? `<button onclick="approveReview('${r.id}')" class="ml-2 font-mono text-[10px] px-3 py-1 rounded-full border hairline-strong hover:opacity-70 transition-opacity" style="color:var(--accent);border-color:var(--accent)">Onayla</button>` : ''}
+      </div>
+    </div>`;
+}
+
+// ── Load & display approved reviews ──────────────────────────
+async function loadReviews() {
+  let reviews = [];
+  if (sbClient) {
+    const { data } = await sbClient.from('reviews').select('*').eq('approved', true).order('created_at', { ascending: false });
+    reviews = data || [];
+  } else {
+    reviews = lsGet().filter(r => r.approved);
+  }
+  const list = document.getElementById('reviewsList');
+  const sec  = document.getElementById('reviewsSection');
+  if (reviews.length === 0) { sec.classList.add('hidden'); return; }
+  list.innerHTML = reviews.map(r => buildCard(r, false)).join('');
+  sec.classList.remove('hidden');
+}
+
+// ── Admin panel ───────────────────────────────────────────────
+async function loadAdminPanel() {
+  const panel = document.getElementById('adminPanel');
+  panel.classList.remove('hidden');
+  let pending = [];
+  if (sbClient) {
+    const { data } = await sbClient.from('reviews').select('*').eq('approved', false).order('created_at', { ascending: false });
+    pending = data || [];
+  } else {
+    pending = lsGet().filter(r => !r.approved);
+  }
+  const list = document.getElementById('pendingList');
+  const noPending = document.getElementById('noPending');
+  if (pending.length === 0) { noPending.classList.remove('hidden'); return; }
+  list.innerHTML = pending.map(r => buildCard(r, true)).join('');
+}
+
+async function approveReview(id) {
+  if (sbClient) {
+    await sbClient.from('reviews').update({ approved: true }).eq('id', id);
+  } else {
+    const arr = lsGet().map(r => r.id === id ? { ...r, approved: true } : r);
+    lsSet(arr);
+  }
+  await loadAdminPanel();
+  await loadReviews();
+}
+
+// ── Star rating ───────────────────────────────────────────────
+let currentRating = 0;
+function setRating(n) {
+  currentRating = n;
+  document.getElementById('ratingValue').value = n;
+  document.querySelectorAll('.star-btn').forEach((btn, i) => {
+    btn.style.color = i < n ? 'var(--accent)' : '';
+  });
+}
+
+// ── Submit ────────────────────────────────────────────────────
+async function submitReview(e) {
+  e.preventDefault();
+  if (!currentRating) { alert('Lütfen bir puan seçin.'); return; }
+  const btn = document.getElementById('reviewSubmitBtn');
+  btn.disabled = true; btn.style.opacity = '0.6';
+
+  const form = e.target;
+  const entry = {
+    id:         crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(),
+    name:       form.name.value.trim(),
+    company:    form.company.value.trim(),
+    email:      form.email.value.trim(),
+    review:     form.review.value.trim(),
+    rating:     currentRating,
+    approved:   false,
+    created_at: new Date().toISOString()
+  };
+
+  if (sbClient) {
+    const { error } = await sbClient.from('reviews').insert([{ ...entry, id: undefined }]);
+    if (error) { alert('Hata: ' + error.message); btn.disabled = false; btn.style.opacity = '1'; return; }
+  } else {
+    const arr = lsGet();
+    arr.push(entry);
+    lsSet(arr);
+  }
+
+  setTimeout(() => {
+    form.style.display = 'none';
+    document.getElementById('reviewSuccess').classList.remove('hidden');
+  }, 500);
+}
+
+// ── Init ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  loadReviews();
+  if (new URLSearchParams(location.search).get('admin') === 'true') {
+    loadAdminPanel();
+  }
+});
+</script>
+
+<script src="i18n.js"></script>
+<script src="shell.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

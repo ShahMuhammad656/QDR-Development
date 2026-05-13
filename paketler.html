@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="tr" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Paketler — QDR Studio</title>
+<meta name="description" content="Sabit kapsam, sabit fiyat. Saatlik faturalama yok, sürpriz fatura yok." />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" type="image/png" href="image.png" />
+<link rel="apple-touch-icon" href="image.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode:'class',
+  theme:{ extend:{
+    fontFamily:{ display:['"Clash Display"','ui-sans-serif','system-ui'], sans:['"Satoshi"','ui-sans-serif','system-ui'], mono:['"JetBrains Mono"','ui-monospace','monospace'] },
+    colors:{ ink:{950:'#0a0a0a',900:'#0f0f0f',850:'#141414',800:'#1a1a1a',700:'#262626'}, bone:{50:'#f7f6f3',100:'#eeece6',200:'#d9d6cd'}, gold:{DEFAULT:'#D4B254',400:'#E0C674',600:'#A98A36'}, violet:{DEFAULT:'#9D5BFF',400:'#B585FF',600:'#7B3AEB'} },
+    letterSpacing:{ tightest:'-0.045em' },
+  }}
+}
+</script>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+.check-icon::before { content: "✓"; color: var(--accent); font-weight: 600; margin-right: 10px; }
+</style>
+</head>
+<body class="grain" data-page="pricing" data-next="faq">
+
+<header class="page-head">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-10 grid grid-cols-12 gap-x-8 items-end">
+    <div class="col-span-12 lg:col-span-8">
+      <div class="eyebrow mb-5 will-reveal"><span class="dot"></span><span data-i18n="pr.eyebrow">07 / Paketler</span></div>
+      <h1 class="text-[clamp(48px,7vw,108px)] will-reveal">
+        <span data-i18n="pr.h1">Sabit kapsam,</span><br>
+        <span class="italic font-light accent" data-i18n="pr.h2">sabit fiyat.</span>
+      </h1>
+    </div>
+    <div class="col-span-12 lg:col-span-4 mt-6 lg:mt-0 will-reveal">
+      <p class="text-muted text-[15px] max-w-[40ch] lg:text-right lg:ml-auto" data-i18n="pr.p">Saatlik faturalama yok. Sürpriz fatura yok. İmza sonrası fiyat değişmez.</p>
+    </div>
+  </div>
+</header>
+
+<section class="py-20 lg:py-28">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-10">
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+
+      <!-- Tier 1: Launch -->
+      <div class="card p-8 will-reveal flex flex-col">
+        <div class="font-mono text-[10px] text-muted tracking-widest mb-6">PAKET 01</div>
+        <div class="font-display text-4xl tracking-tightest mb-2">Launch</div>
+        <p class="text-muted text-[14px] mb-6" data-i18n="pr.t1.sub">Yeni markalar için ilk dijital varlık.</p>
+        <div class="mb-2">
+          <span class="font-display text-5xl tracking-tightest">₺5.500</span>
+        </div>
+        <div class="font-mono text-[11px] text-muted mb-8" data-i18n="pr.t1.term">tek seferlik · 3 hafta</div>
+        <ul class="space-y-3 mb-8 flex-1">
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t1.f1">1-2 sayfa ya kadar</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t1.f2">Next.js + Tailwind, CMS yok</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t1.f3">Temel SEO + analytics</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t1.f4">2 round revizyon</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t1.f5">14 gün post-launch destek</span></li>
+        </ul>
+        <a href="iletisim.html" class="btn btn-ghost w-full justify-center" data-magnetic data-i18n="pr.t1.cta">Görüşme planla</a>
+      </div>
+
+      <!-- Tier 2: Atelier (Popular) -->
+      <div class="card pop p-8 will-reveal flex flex-col" style="border-color:var(--accent)">
+        <div class="flex items-center justify-between mb-6">
+          <div class="font-mono text-[10px] text-muted tracking-widest">PAKET 02</div>
+          <div class="font-mono text-[10px] px-2.5 py-1 rounded-full" style="background:rgba(212,178,84,0.15); color:var(--accent)" data-i18n="pr.popular">EN POPÜLER</div>
+        </div>
+        <div class="font-display text-4xl tracking-tightest mb-2">Atelier</div>
+        <p class="text-muted text-[14px] mb-6" data-i18n="pr.t2.sub">Büyüyen markalar için ölçeklenebilir dijital ekosistem.</p>
+        <div class="mb-2">
+          <span class="font-display text-5xl tracking-tightest">₺12.500</span>
+        </div>
+        <div class="font-mono text-[11px] text-muted mb-8" data-i18n="pr.t2.term">tek seferlik · 6 hafta</div>
+        <ul class="space-y-3 mb-8 flex-1">
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t2.f1">5 sayfaya kadar web sitesi</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t2.f2">Custom motion + WebGL hero</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t2.f3">Çok dilli (i18n) + A/B test motoru</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t2.f4">Auth &amp; ödeme entegrasyonu</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t2.f5">Component library + Storybook</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t2.f6">98+ Lighthouse garantisi</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t2.f7">60 gün post-launch destek</span></li>
+        </ul>
+        <a href="iletisim.html" class="btn btn-primary w-full justify-center" data-magnetic data-i18n="pr.t2.cta">Görüşme planla →</a>
+      </div>
+
+      <!-- Tier 3: Enterprise -->
+      <div class="card p-8 will-reveal flex flex-col">
+        <div class="font-mono text-[10px] text-muted tracking-widest mb-6">PAKET 03</div>
+        <div class="font-display text-4xl tracking-tightest mb-2">Enterprise</div>
+        <p class="text-muted text-[14px] mb-6" data-i18n="pr.t3.sub">SaaS, fintech, ölçekli markalar için.</p>
+        <div class="mb-2">
+          <span class="font-display text-5xl tracking-tightest" data-i18n="pr.t3.price">₺25.000+</span>
+        </div>
+        <div class="font-mono text-[11px] text-muted mb-8" data-i18n="pr.t3.term">özel teklif · 8–12 hafta</div>
+        <ul class="space-y-3 mb-8 flex-1">
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t3.f1">Sınırsız Sayfa web sitesi</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t3.f2">Auth, ödeme, billing entegrasyonu</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t3.f3">SOC2/GDPR-ready mimari</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t3.f4">Fractional CTO 3 ay dahil</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t3.f5">Dedicated Slack + 4 saat SLA</span></li>
+          <li class="flex items-start text-[14px]"><span class="check-icon"></span><span data-i18n="pr.t3.f6">90 gün post-launch retainer</span></li>
+        </ul>
+        <a href="iletisim.html" class="btn btn-ghost w-full justify-center" data-magnetic data-i18n="pr.t3.cta">Teklif iste</a>
+      </div>
+
+    </div>
+
+    <!-- Billing note -->
+    <p class="mt-8 text-center font-mono text-[11px] text-muted" data-i18n="pr.foot">Tüm paketler %40 başlangıç, %30 ara teslim, %30 launch ile faturalanır. KDV hariç.</p>
+
+    <!-- Comparison row -->
+    <div class="mt-16 will-reveal">
+      <div class="font-mono text-[10px] text-muted tracking-widest mb-6">PAKET KARŞILAŞTIRMA</div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-[13px]">
+          <thead>
+            <tr class="border-b hairline-strong">
+              <th class="text-left py-3 pr-6 font-mono text-[10px] text-muted tracking-widest w-[40%]">ÖZELLİK</th>
+              <th class="text-center py-3 px-4 font-mono text-[10px] text-muted tracking-widest">LAUNCH</th>
+              <th class="text-center py-3 px-4 font-mono text-[10px] accent tracking-widest">ATELIER</th>
+              <th class="text-center py-3 px-4 font-mono text-[10px] text-muted tracking-widest">ENTERPRISE</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y hairline">
+            <tr>
+              <td class="py-3 pr-6 text-muted">Sayfa sayısı</td>
+              <td class="text-center py-3 px-4">1–2</td>
+              <td class="text-center py-3 px-4 accent font-medium">5'e kadar</td>
+              <td class="text-center py-3 px-4">Sınırsız</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-6 text-muted">Headless CMS</td>
+              <td class="text-center py-3 px-4 text-muted">—</td>
+              <td class="text-center py-3 px-4 accent">✓</td>
+              <td class="text-center py-3 px-4">✓</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-6 text-muted">WebGL / 3D hero</td>
+              <td class="text-center py-3 px-4 text-muted">—</td>
+              <td class="text-center py-3 px-4 accent">✓</td>
+              <td class="text-center py-3 px-4">✓</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-6 text-muted">Auth &amp; ödeme sistemi</td>
+              <td class="text-center py-3 px-4 text-muted">—</td>
+              <td class="text-center py-3 px-4 accent">✓</td>
+              <td class="text-center py-3 px-4">✓</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-6 text-muted">SOC2-ready mimari</td>
+              <td class="text-center py-3 px-4 text-muted">—</td>
+              <td class="text-center py-3 px-4 text-muted">—</td>
+              <td class="text-center py-3 px-4">✓</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-6 text-muted">Post-launch destek</td>
+              <td class="text-center py-3 px-4">14 gün</td>
+              <td class="text-center py-3 px-4 accent">60 gün</td>
+              <td class="text-center py-3 px-4">90 gün</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-6 text-muted">Lighthouse garantisi</td>
+              <td class="text-center py-3 px-4 text-muted">—</td>
+              <td class="text-center py-3 px-4 accent">98+</td>
+              <td class="text-center py-3 px-4">98+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script src="i18n.js"></script>
+<script src="shell.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
