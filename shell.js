@@ -17,36 +17,63 @@
   window.__PAGES = PAGES;
   const body = document.body;
   const currentId = body.dataset.page || 'home';
+
   /* ---------- NAV ---------- */
   const navItems = PAGES.filter(p => p.id !== 'home').map(p => `
     <li><a href="${p.href}" class="nav-link${p.id === currentId ? ' active' : ''}" data-page-link="${p.id}" data-i18n="nav.${p.id}">${p.label_tr}</a></li>
   `).join('');
 
+  const overlayItems = PAGES.filter(p => p.id !== 'home').map((p, i) => `
+    <li class="nav-ol-item">
+      <a href="${p.href}" class="nav-ol-link${p.id === currentId ? ' active' : ''}" data-i18n="nav.${p.id}">
+        <span>${p.label_tr}</span>
+        <span class="nav-ol-num">${String(i+1).padStart(2,'0')}</span>
+      </a>
+    </li>`).join('');
+
   const nav = `
     <header class="fixed top-0 inset-x-0 z-50">
-      <div class="mx-auto max-w-[1440px] px-6 lg:px-10 pt-5">
-        <nav class="glass rounded-full flex items-center justify-between pl-5 pr-2 py-2">
-          <a href="index.html" class="flex items-center gap-2 font-display text-[17px]" style="letter-spacing:-0.035em">
-<img src="apple-touch-icon.png" alt="QDR" loading="eager" decoding="async" class="w-16 h-16 rounded-full object-cover object-center shrink-0" style="min-width:2.5rem" />            <span data-i18n="brand">QDR Studio</span>
-            <span class="font-mono text-[10px] text-muted ml-1.5 hidden md:inline">/ FREELANCE STUDIO</span>
+      <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10 pt-4 lg:pt-5">
+        <nav class="glass rounded-full flex items-center justify-between pl-4 pr-2 py-2 lg:pl-5">
+          <a href="index.html" class="flex items-center gap-2 font-display text-[16px] lg:text-[17px]" style="letter-spacing:-0.035em">
+            <img src="apple-touch-icon.png" alt="QDR" loading="eager" decoding="async" class="w-8 h-8 rounded-full object-cover object-center shrink-0" />
+            <span data-i18n="brand">QDR Studio</span>
+            <span class="font-mono text-[10px] text-muted ml-1.5 hidden md:inline lg:hidden xl:inline">/ STUDIO</span>
           </a>
           <ul class="hidden lg:flex items-center gap-6 text-[13px]">${navItems}</ul>
-          <div class="flex items-center gap-2">
-            <button id="navMobile" class="lg:hidden w-9 h-9 rounded-full border hairline-strong flex items-center justify-center" aria-label="Menü">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-            </button>
+          <div class="flex items-center gap-1.5">
             <button id="langBtn" class="font-mono text-[11px] px-2.5 py-1 rounded-full border hairline-strong tracking-wider hidden sm:block">TR / EN</button>
             <button id="themeBtn" class="w-9 h-9 rounded-full border hairline-strong flex items-center justify-center" aria-label="Tema">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
             </button>
-            <a href="iletisim.html" class="btn btn-primary py-2.5 px-4 text-[12.5px]" data-i18n="nav.cta">Proje Konuş →</a>
+            <a href="iletisim.html" class="hidden lg:inline-flex btn btn-primary py-2.5 px-4 text-[12.5px]" data-i18n="nav.cta">Proje Konuş →</a>
+            <button id="navMobile" class="lg:hidden w-9 h-9 rounded-full border hairline-strong flex items-center justify-center" aria-label="Menü" aria-expanded="false">
+              <svg class="nav-ham" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h10"/></svg>
+              <svg class="nav-x" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
           </div>
         </nav>
-        <div id="mobileMenu" class="lg:hidden mt-2 glass rounded-2xl p-4" style="display:none">
-          <ul class="grid grid-cols-2 gap-3 text-[14px]">${navItems}</ul>
+      </div>
+    </header>
+
+    <div id="mobileMenu" class="nav-overlay" aria-hidden="true">
+      <div class="nav-ol-bg"></div>
+      <div class="nav-ol-panel">
+        <div class="nav-ol-header">
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:var(--accent)"></span>
+            <span class="font-mono text-[10px] text-muted tracking-widest">Q3 2026 · 2 KOLTUK AÇIK</span>
+          </div>
+        </div>
+        <ul class="nav-ol-list">${overlayItems}</ul>
+        <div class="nav-ol-footer">
+          <a href="iletisim.html" class="nav-ol-cta" data-i18n="nav.cta">
+            <span>Proje Konuş</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
         </div>
       </div>
-    </header>`;
+    </div>`;
 
   /* ---------- PRE-FOOTER NEXT CARD ---------- */
   const nextId = body.dataset.next;
@@ -183,11 +210,37 @@
 
   /* ---------- Mobile menu toggle ---------- */
   const mb = document.getElementById('navMobile');
-  if (mb){
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (mb && mobileMenu){
+    function openMenu(){
+      mobileMenu.classList.add('open');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      mb.classList.add('is-open');
+      mb.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu(){
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      mb.classList.remove('is-open');
+      mb.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
     mb.addEventListener('click', ()=>{
-      const m = document.getElementById('mobileMenu');
-      m.style.display = m.style.display === 'none' ? 'block' : 'none';
-    }, { passive: true });
+      mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+    });
+    /* Close when tapping the backdrop (outside panel) */
+    mobileMenu.addEventListener('click', (e)=>{
+      if (!e.target.closest('.nav-ol-panel')) closeMenu();
+    });
+    /* Close when a nav link is tapped */
+    mobileMenu.querySelectorAll('.nav-ol-link, .nav-ol-cta').forEach(a=>{
+      a.addEventListener('click', closeMenu);
+    });
+    /* Close on Escape */
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMenu();
+    });
   }
 })();
 
