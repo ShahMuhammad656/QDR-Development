@@ -170,3 +170,72 @@ main.page{ padding-top: 132px; padding-bottom: 100px; min-height: calc(100vh - 2
 
 /* Footer */
 .site-footer{ border-top: 1px solid var(--line);}
+
+/* =========================================================
+   PERFORMANCE & MOBILE/TABLET
+   ========================================================= */
+
+/* Faster tap response on touch */
+a, button, summary, label, [data-magnetic]{
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Promote GPU layers for animated elements */
+.blob, .ring, .blob-stage, .marquee{
+  will-change: transform;
+}
+
+/* ── Tablet (< 1024px) ─────────────────────────────────── */
+@media (max-width:1023px){
+  main.page{ padding-top: 110px; padding-bottom: 80px; }
+  .page-head{ padding-top: 28px; padding-bottom: 40px; }
+  .next-card{ padding: 28px; border-radius: 20px; }
+}
+
+/* ── Mobile (< 768px) ──────────────────────────────────── */
+@media (max-width:767px){
+  /* Layout */
+  main.page{ padding-top: 96px; padding-bottom: 60px; }
+  .page-head{ padding-top: 20px; padding-bottom: 32px; }
+
+  /* Reduce blob complexity — saves GPU on low-end phones */
+  .blob{
+    filter: blur(28px) saturate(100%);
+    animation-duration: 20s;
+  }
+  .blob.b2{ display: none; }
+  .ring-2{ display: none; }
+
+  /* Disable parallax blob-stage transform on mobile */
+  .blob-stage{ transform: none !important; }
+
+  /* Stop marquee on low-end: only slow it down slightly */
+  .marquee{ animation-duration: 55s; }
+
+  /* Cards */
+  .card{ border-radius: 16px; }
+  .next-card{ padding: 20px 18px; border-radius: 16px; flex-direction: column; align-items: flex-start; }
+
+  /* Buttons */
+  .btn{ padding: 12px 18px; font-size: 13px; }
+
+  /* Tweaks panel — full width on mobile */
+  .tw-panel{ right: 12px; left: 12px; width: auto; bottom: 12px; }
+
+  /* Typography floor */
+  .font-display{ letter-spacing: -0.02em; }
+  .page-head h1{ line-height: 0.97; }
+}
+
+/* ── Small mobile (< 480px) ────────────────────────────── */
+@media (max-width:479px){
+  main.page{ padding-top: 88px; }
+
+  /* Grain off on tiny screens (saves compositing) */
+  .grain::before{ display: none; }
+
+  /* Section padding tighten */
+  .py-20{ padding-top: 3rem; padding-bottom: 3rem; }
+  .py-28{ padding-top: 4rem; padding-bottom: 4rem; }
+}

@@ -15,10 +15,8 @@
     { id: 'contact',      href: 'iletisim.html',    label_tr: 'İletişim',   label_en: 'Contact' },
   ];
   window.__PAGES = PAGES;
-
   const body = document.body;
   const currentId = body.dataset.page || 'home';
-
   /* ---------- NAV ---------- */
   const navItems = PAGES.filter(p => p.id !== 'home').map(p => `
     <li><a href="${p.href}" class="nav-link${p.id === currentId ? ' active' : ''}" data-page-link="${p.id}" data-i18n="nav.${p.id}">${p.label_tr}</a></li>
@@ -29,8 +27,7 @@
       <div class="mx-auto max-w-[1440px] px-6 lg:px-10 pt-5">
         <nav class="glass rounded-full flex items-center justify-between pl-5 pr-2 py-2">
           <a href="index.html" class="flex items-center gap-2 font-display text-[17px]" style="letter-spacing:-0.035em">
-            <img src="LOGO.jpeg" alt="QDR" class="w-8 h-8 rounded-full object-cover object-center shrink-0" style="min-width:2rem" />
-            <span data-i18n="brand">QDR Studio</span>
+<img src="LOGO.jpeg" alt="QDR" loading="eager" decoding="async" class="w-10 h-10 rounded-full object-cover object-center shrink-0" style="min-width:2.5rem" />            <span data-i18n="brand">QDR Studio</span>
             <span class="font-mono text-[10px] text-muted ml-1.5 hidden md:inline">/ FREELANCE STUDIO</span>
           </a>
           <ul class="hidden lg:flex items-center gap-6 text-[13px]">${navItems}</ul>
@@ -190,7 +187,7 @@
     mb.addEventListener('click', ()=>{
       const m = document.getElementById('mobileMenu');
       m.style.display = m.style.display === 'none' ? 'block' : 'none';
-    });
+    }, { passive: true });
   }
 })();
 
