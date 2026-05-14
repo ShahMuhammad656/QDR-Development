@@ -27,7 +27,7 @@
       <div class="mx-auto max-w-[1440px] px-6 lg:px-10 pt-5">
         <nav class="glass rounded-full flex items-center justify-between pl-5 pr-2 py-2">
           <a href="index.html" class="flex items-center gap-2 font-display text-[17px]" style="letter-spacing:-0.035em">
-<img src="apple-touch-icon.png" alt="QDR" class="w-16 h-16 rounded-full object-cover object-center shrink-0" style="min-width:2rem; mix-blend-mode:lighten;" />            <span data-i18n="brand">QDR Studio</span>
+<img src="apple-touch-icon.png" alt="QDR" class="w-16 h-16 rounded-full object-cover object-center shrink-0" style="min-width:2rem; mix-blend-mode:lighten;" />            <span data-i18n="brand">QDR DESIGN</span>
             <span class="font-mono text-[10px] text-muted ml-1.5 hidden md:inline">/ FREELANCE STUDIO</span>
           </a>
           <ul class="hidden lg:flex items-center gap-6 text-[13px]">${navItems}</ul>
@@ -82,7 +82,7 @@
         <div class="col-span-12 md:col-span-4">
           <div class="flex items-center gap-2.5 font-display text-xl" style="letter-spacing:-0.035em">
             <span class="w-2.5 h-2.5 rounded-full" style="background:var(--accent)"></span>
-            <span>QDR Studio</span>
+            <span>QDR DESIGN</span>
           </div>
           <p class="text-muted text-[14px] mt-4 max-w-[36ch]" data-i18n="ftr.about">Bağımsız bir geliştirici stüdyosu. Ankara'dan dünyaya. 2024'den beri.</p>
         </div>
@@ -111,7 +111,7 @@
       </div>
       <div class="border-t hairline">
         <div class="mx-auto max-w-[1440px] px-6 lg:px-10 py-6 flex flex-wrap items-center justify-between gap-4 text-[11px] font-mono text-muted">
-          <span>© 2026 QDR STUDIO · ALL RIGHTS RESERVED</span>
+          <span>© 2026 QDR DESIGN · ALL RIGHTS RESERVED</span>
           <span><a href="design-system.html" class="hover:text-[var(--fg)]">DESIGN SYSTEM ↗</a> · <a href="structure.md" class="hover:text-[var(--fg)]">STACK ↗</a></span>
           <span data-i18n="ftr.craft">crafted in Ankara · ☕︎ × ∞</span>
         </div>
