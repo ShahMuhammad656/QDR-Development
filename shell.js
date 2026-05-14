@@ -27,7 +27,7 @@
       <div class="mx-auto max-w-[1440px] px-6 lg:px-10 pt-5">
         <nav class="glass rounded-full flex items-center justify-between pl-5 pr-2 py-2">
           <a href="index.html" class="flex items-center gap-2 font-display text-[17px]" style="letter-spacing:-0.035em">
-<img src="LOGO.jpeg" alt="QDR" loading="eager" decoding="async" class="w-10 h-10 rounded-full object-cover object-center shrink-0" style="min-width:2.5rem" />            <span data-i18n="brand">QDR Studio</span>
+<img src="apple-touch-icon.png" alt="QDR" loading="eager" decoding="async" class="w-16 h-16 rounded-full object-cover object-center shrink-0" style="min-width:2.5rem" />            <span data-i18n="brand">QDR Studio</span>
             <span class="font-mono text-[10px] text-muted ml-1.5 hidden md:inline">/ FREELANCE STUDIO</span>
           </a>
           <ul class="hidden lg:flex items-center gap-6 text-[13px]">${navItems}</ul>
