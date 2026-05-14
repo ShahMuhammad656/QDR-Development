@@ -1,4 +1,4 @@
-/* Shared shell — injects nav, footer, tweaks panel, custom cursor, light/dark, lang, gsap reveals.
+﻿/* Shared shell — injects nav, footer, tweaks panel, custom cursor, light/dark, lang, gsap reveals.
    Each page sets <body data-page="..." data-next="..." data-next-label="..."> */
 
 (function(){
@@ -37,8 +37,8 @@
         <nav class="glass rounded-full flex items-center justify-between pl-4 pr-2 py-2 lg:pl-5">
           <a href="index.html" class="flex items-center gap-2 font-display text-[16px] lg:text-[17px]" style="letter-spacing:-0.035em">
             <img src="apple-touch-icon.png" alt="QDR" loading="eager" decoding="async" class="w-8 h-8 rounded-full object-cover object-center shrink-0" />
-            <span data-i18n="brand">QDR Studio</span>
-            <span class="font-mono text-[10px] text-muted ml-1.5 hidden md:inline lg:hidden xl:inline">/ STUDIO</span>
+            <span data-i18n="brand">QDR Development</span>
+            <span class="font-mono text-[10px] text-muted ml-1.5 hidden md:inline lg:hidden xl:inline">/ DEV</span>
           </a>
           <ul class="hidden lg:flex items-center gap-6 text-[13px]">${navItems}</ul>
           <div class="flex items-center gap-1.5">
@@ -111,7 +111,7 @@
         <div class="col-span-12 md:col-span-4">
           <div class="flex items-center gap-2.5 font-display text-xl" style="letter-spacing:-0.035em">
             <span class="w-2.5 h-2.5 rounded-full" style="background:var(--accent)"></span>
-            <span>QDR Studio</span>
+            <span>QDR Development</span>
           </div>
           <p class="text-muted text-[14px] mt-4 max-w-[36ch]" data-i18n="ftr.about">Bağımsız bir geliştirici stüdyosu. Ankara'dan dünyaya. 2024'den beri.</p>
         </div>
@@ -140,7 +140,7 @@
       </div>
       <div class="border-t hairline">
         <div class="mx-auto max-w-[1440px] px-6 lg:px-10 py-6 flex flex-wrap items-center justify-between gap-4 text-[11px] font-mono text-muted">
-          <span>© 2026 QDR STUDIO · ALL RIGHTS RESERVED</span>
+          <span>© 2026 QDR Development · ALL RIGHTS RESERVED</span>
           <span><a href="design-system.html" class="hover:text-[var(--fg)]">DESIGN SYSTEM ↗</a> · <a href="structure.md" class="hover:text-[var(--fg)]">STACK ↗</a></span>
           <span data-i18n="ftr.craft">crafted in Ankara · ☕︎ × ∞</span>
         </div>
