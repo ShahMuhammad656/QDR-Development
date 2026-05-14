@@ -1,7 +1,7 @@
 ﻿/* Mini i18n dictionary (TR default + EN) */
 window.__i18n = {
   tr: {
-    "brand":"QDR Labs",
+    "brand":"QDR Studio",
     "nav.about":"Hakkımda","nav.stack":"Yığın","nav.services":"Hizmetler","nav.work":"İşler","nav.process":"Süreç","nav.testimonials":"Yorumlar","nav.pricing":"Paketler","nav.faq":"SSS","nav.contact":"İletişim","nav.cta":"Proje Konuş →",
     "next.eyebrow":"SONRAKİ →",
     "next.about":"Hakkımda","next.stack":"Yığın","next.services":"Hizmetler","next.work":"İşler","next.process":"Süreç","next.testimonials":"Yorumlar","next.pricing":"Paketler","next.faq":"SSS","next.contact":"İletişim",
@@ -67,7 +67,7 @@ window.__i18n = {
     "ftr.news":"Üç haftada bir, üç paragraf. Spam yok.","ftr.craft":"crafted in Ankara · ☕︎ × ∞"
   },
   en: {
-    "brand":"QDR Labs",
+    "brand":"QDR Studio",
     "nav.about":"About","nav.stack":"Stack","nav.services":"Services","nav.work":"Work","nav.process":"Process","nav.testimonials":"Words","nav.pricing":"Pricing","nav.faq":"FAQ","nav.contact":"Contact","nav.cta":"Start a Project →",
     "next.eyebrow":"NEXT →",
     "next.about":"About","next.stack":"Stack","next.services":"Services","next.work":"Work","next.process":"Process","next.testimonials":"Words","next.pricing":"Pricing","next.faq":"FAQ","next.contact":"Contact",
