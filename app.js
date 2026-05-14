@@ -222,17 +222,22 @@
       if (dict[k] !== undefined) el.textContent = dict[k];
     });
     savePref('lang', lang);
+    currentLang = lang;
+    /* Sync overlay lang buttons */
+    document.querySelectorAll('[data-ol-lang]').forEach(b =>
+      b.classList.toggle('active', b.dataset.olLang === lang));
   }
+  window.__applyI18n = applyI18n;
+
+  let currentLang = document.documentElement.lang || 'tr';
   try {
     const saved = JSON.parse(localStorage.getItem('atelier_prefs') || '{}');
     if (saved.lang) applyI18n(saved.lang);
   } catch(e) {}
 
-  let currentLang = document.documentElement.lang || 'tr';
   const langBtn = document.getElementById('langBtn');
   if (langBtn) langBtn.addEventListener('click', () => {
-    currentLang = currentLang === 'tr' ? 'en' : 'tr';
-    applyI18n(currentLang);
+    applyI18n(currentLang === 'tr' ? 'en' : 'tr');
   });
 
   /* ---------- Accent ---------- */

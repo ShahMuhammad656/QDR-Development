@@ -67,6 +67,11 @@
         </div>
         <ul class="nav-ol-list">${overlayItems}</ul>
         <div class="nav-ol-footer">
+          <div class="nav-ol-lang">
+            <button class="nav-ol-lang-btn" data-ol-lang="tr">TR</button>
+            <span class="nav-ol-lang-sep">/</span>
+            <button class="nav-ol-lang-btn" data-ol-lang="en">EN</button>
+          </div>
           <a href="iletisim.html" class="nav-ol-cta" data-i18n="nav.cta">
             <span>Proje Konuş</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -240,6 +245,15 @@
     /* Close on Escape */
     document.addEventListener('keydown', (e)=>{
       if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMenu();
+    });
+    /* Overlay language buttons — delegate to app.js applyI18n when ready */
+    mobileMenu.querySelectorAll('[data-ol-lang]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const lang = btn.dataset.olLang;
+        if (window.__applyI18n) window.__applyI18n(lang);
+        /* Sync active state */
+        mobileMenu.querySelectorAll('[data-ol-lang]').forEach(b=>b.classList.toggle('active', b===btn));
+      });
     });
   }
 })();

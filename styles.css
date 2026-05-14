@@ -344,3 +344,25 @@ html.light .nav-ol-link:hover{ background: rgba(0,0,0,0.03); }
 #navMobile .nav-x{   display: none;  }
 #navMobile.is-open .nav-ham{ display: none;  }
 #navMobile.is-open .nav-x{   display: block; }
+
+/* overlay lang toggle */
+.nav-ol-lang{
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 12px;
+}
+.nav-ol-lang-btn{
+  font-family: 'JetBrains Mono'; font-size: 11px; letter-spacing: .1em;
+  padding: 5px 12px; border-radius: 999px;
+  border: 1px solid var(--line-strong); color: var(--muted);
+  background: transparent; cursor: pointer;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.nav-ol-lang-btn:hover,
+.nav-ol-lang-btn.active{
+  color: var(--fg); border-color: var(--fg); background: rgba(255,255,255,0.06);
+}
+html.light .nav-ol-lang-btn:hover,
+html.light .nav-ol-lang-btn.active{ background: rgba(0,0,0,0.06); }
+.nav-ol-lang-sep{
+  font-family: 'JetBrains Mono'; font-size: 10px; color: var(--muted); opacity: .4;
+}
